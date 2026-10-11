@@ -10,7 +10,7 @@ $color-text:#f5f0d8;
 $color-muted:#c5d5b7;
 $color-border:#8d7047;
 
-$game-width:500px;
+$game-width:550px;
 
 // this is define for font pixel in directory FRONTS
 @font-face {
@@ -125,8 +125,9 @@ button:focus-visible{
   .GameHeader{
     display: flex;
     width:$game-width;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+
     h2{
       margin:0;
       color:$color-primary;
