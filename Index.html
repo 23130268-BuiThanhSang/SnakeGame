@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+<main id="Game">
+<!--this is menu for game-->
+    <section id="Menu" class="Screen">
+    <div class="MenuBackground"></div>
+    <div class="MenuOverLay"></div>
+        <div class="MenuContent">
+            <h1 class="GameTitle">THE SNAKE'S REVENGE</h1>
+            <div class="MenuButtons">
+                <button id="playButton" class="MenuButton">Play Game</button>
+                <button id="selectChapterButton" class="MenuButton">Select Chapters</button>
+                <button id="storyButton" class="MenuButton">Story</button>
+            </div>
+        </div>
+    </section>
+    <section id="Village" class="Screen" hidden>
+        <header class="GameHeader">
+            <h2>VILLAGE</h2>
+            <div class="GameStates">
+                <span>SCORE:<strong id="Score">0</strong></span>
+                <span>MOUSE:<strong id="mouseEaten">0</strong></span>
+            </div>
+        </header>
+        <canvas id="GameCanvas"></canvas>
+        <p class="GameHint">
+            Move: Arrow Key/ WASD
+        </p>
+        <button id="backToMenu" type="button">
+            Back To Menu
+        </button>
+    </section>
+</main>
+<script src="Main.js"></script>
+</body>
+</html>
