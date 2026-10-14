@@ -160,7 +160,110 @@ button:focus-visible {
   background: #267d26;
 }
 
+#WinScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+#WinScreen .WinContent {
+  width: 600px;
+  padding: 40px;
+  text-align: center;
+  color: #f5f0d8;
+  border: 4px solid #8d7047;
+  border-radius: 10px;
+  background: #182719;
+}
+#WinScreen .WinContent h1 {
+  color: #6dc39b;
+  font-size: 32px;
+  line-height: 1.8;
+  margin: 0 0 30px;
+}
+#WinScreen .WinContent p {
+  margin: 0 0 24px;
+  color: #c5d5b7;
+  font-size: 12px;
+  line-height: 2;
+}
+#WinScreen .WinContent button {
+  margin: 8px;
+  padding: 15px 20px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  line-height: 1.8;
+  color: #f5f0d8;
+  background: #182719;
+  border: 2px solid #6dc39b;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.WinContent button:hover {
+  background: #2f5d1e;
+}
+
+#GameOverScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 100;
+}
+#GameOverScreen .GameOverContent {
+  padding: 40px;
+  text-align: center;
+  width: 600px;
+  color: #f5f0d8;
+  background: #182719;
+  border: 4px solid #a52a2a;
+  border-radius: 10px;
+}
+#GameOverScreen .GameOverContent h1 {
+  margin: 0 0 30px;
+  font-size: 28px;
+  line-height: 1.8;
+  color: #e74c3c;
+}
+#GameOverScreen .GameOverContent p {
+  margin: 0 0 24px;
+  font-size: 12px;
+  line-height: 2;
+  color: #c5d5b7;
+}
+#GameOverScreen .GameOverContent button {
+  margin: 8px;
+  padding: 15px 20px;
+  line-height: 1.8;
+  color: #f5f0d8;
+  background: #043304;
+  border: 2px solid #a52a2a;
+  border-radius: 8px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  cursor: pointer;
+}
+#GameOverScreen .GameOverContent button:hover {
+  background: #7b2020;
+}
+
 [hidden] {
+  display: none !important;
+}
+
+#WinScreen[hidden] {
   display: none !important;
 }
 

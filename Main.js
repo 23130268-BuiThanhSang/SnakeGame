@@ -7,6 +7,30 @@ const storyButton = document.getElementById("storyButton");
 const backToMenuButton = document.getElementById("backToMenu");
 const canvas = document.getElementById("GameCanvas");
 const ctx = canvas.getContext("2d");
+const scoreElement = document.getElementById("Score");
+const mouseEatenElement = document.getElementById("mouseEaten");
+// declare for win game screen
+const winScreen = document.getElementById("WinScreen");
+const winBackToMenu = document.getElementById("winBackToMenu");
+const finalScoreElement = document.getElementById("FinalScore");
+// declare for lose game
+const gameOverScreen = document.getElementById("GameOverScreen");
+const gameOverScore = document.getElementById("GameOverScore");
+const retryButton = document.getElementById("retryButton");
+const gameOverBackToMenu = document.getElementById("gameOverBackToMenu");
+
+// const mouseImage = new Image();
+// mouseImage.src = "Assets/Img/download.png";
+
+
+
+
+
+
+
+
+const targetScore =6;
+
 
 // size for each map define here
 // size for map level 1
@@ -16,6 +40,7 @@ const cellSize = 20;
 canvas.width = gridSize*cellSize;
 canvas.height = gridSize*cellSize;
 
+let gameLoop = null;
 // funtion tranform level or menu in here
 // funtion define tranform menu to level 1
 function startGame(){
@@ -23,35 +48,61 @@ function startGame(){
         clearInterval(gameLoop);
     }
     menu.hidden = true;
+    winScreen.hidden = true;
+    gameOverScreen.hidden = true;
     village.hidden = false;
+    scoreElement.textContent = 0;
+    score=0;
+    mouseEatenElement.textContent=0;
     snake =[
-        { x: 10, y: 10 },
-        { x: 9, y: 10 },
-        { x: 8, y: 10 }
+        { x: 3, y: 10 },
+        { x: 2, y: 10 },
+        { x: 1, y: 10 }
     ]
     direction = { x: 1, y: 0 };
     nextDirection = { x: 1, y: 0 };
     drawGame();
-    gameLoop = setInterval(moveSnake, 150);
+    gameLoop = setInterval(moveSnake, 200);
 }
+
+// function define win game
+function winGame(){
+    clearInterval(gameLoop);
+    gameLoop = null;
+    village.hidden = true;
+    winScreen.hidden = false;
+    finalScoreElement.textContent = score*100;
+}
+// function define lose game
+function loseGame(){
+    clearInterval(gameLoop);
+    gameLoop = null;
+    village.hidden = true;
+    winScreen.hidden = true;
+    gameOverScreen.hidden = false;
+    gameOverScore.textContent = score*100;
+
+}
+
+
 //funtion define back to menu
 function backToMenu(){
     village.hidden = true;
+    winScreen.hidden = true;
+    gameOverScreen.hidden = true;
     menu.hidden = false;
 }
 
 // define Snake at here
-let snake =[
-    {x: 10, y:10}
-    ,{x: 9, y:10}
-    ,{x:8, y:10}
-];
+let snake =[];
 // direction current
 let direction ={x:1,y:0};
 // next direction . default direction current
 let nextDirection ={x:1,y:0};
-
-let gameLoop = null;
+// declare food for game
+let food = {x:15,y:10}
+// declare score
+let score = 0;
 // draw snake
 function drawSnake(){
     for (let i = 0; i < snake.length; i++) {
@@ -60,19 +111,44 @@ function drawSnake(){
         if(i===0){
             ctx.fillStyle = "#1d3a12";
         }else{
-            ctx.fillStyle = "#2f5d1e"
+            ctx.fillStyle = "#42812a"
         }
         ctx.fillRect(part.x*cellSize+1,part.y*cellSize+1,cellSize-2,cellSize-2);
     }
+}
+// create food
+function createFood(){
+    let newFood;
+    let isOnSnake;
+    do{
+        isOnSnake = false;
+        newFood = { x: Math.floor(Math.random()*gridSize),
+                    y: Math.floor(Math.random()*gridSize),};
+        for ( let segment of snake){
+            if(segment.x === newFood.x && segment.y === newFood.y){
+                isOnSnake = true;
+                break;
+            }
+        }
+
+    }while(isOnSnake)
+    food = newFood;
+}
+// draw food
+function drawFood(){
+    ctx.fillStyle = "#da0e32";
+    ctx.fillRect(food.x*cellSize+1,food.y*cellSize+1, cellSize -2, cellSize-2);
+//     ctx.drawImage(mouseImage,food.x * cellSize +1, food.y * cellSize+1, cellSize -2, cellSize -2);
 }
 
 // define map at here
 function drawBackground(){
     ctx.fillStyle = "#c6be3e";
+    // ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.strokeStyle ="#6d9640";
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 0.5;
     for (let i = 0; i < gridSize; i++){
         const position = i*cellSize;
 
@@ -92,6 +168,7 @@ function drawBackground(){
 function drawGame(){
     drawBackground();
     drawSnake();
+    drawFood();
 }
 // move for snake
 function moveSnake(){
@@ -101,9 +178,35 @@ function moveSnake(){
         x: head.x+direction.x,
         y: head.y+direction.y
     };
-
+    // check bitseft
+    const bitSeft = snake.some(segment => segment.x === newHead.x && segment.y === newHead.y);
+    if(bitSeft){
+        loseGame();
+        return;
+    }
+    // check clossion wwall
+    if(newHead.x<0|| newHead.x >=gridSize|| newHead.y<0|| newHead.y >=gridSize){
+        loseGame();
+        return;
+    }
+    // check is food
+    const ateFood = newHead.x === food.x && newHead.y === food.y;
     snake.unshift(newHead);
-    snake.pop();
+    if(ateFood){
+        score++;
+        scoreElement.textContent = score*100;
+        mouseEatenElement.textContent = score;
+
+        if(score>=targetScore){
+            winGame();
+            return;
+        }
+        createFood();
+    }else{
+        snake.pop();
+    }
+
+
 
     drawGame();
 }
@@ -148,3 +251,6 @@ document.addEventListener("keydown", function(e){
 // add listener for button
 playButton.addEventListener("click", startGame);
 backToMenuButton.addEventListener("click", backToMenu);
+winBackToMenu.addEventListener("click", backToMenu);
+retryButton.addEventListener("click",startGame);
+gameOverBackToMenu.addEventListener("click", backToMenu);
