@@ -53,6 +53,18 @@ spiderImg.src = "Assets/Img/spider.png";
 let spiders =[];
 let spiderLoop = null;
 
+// -------------------------variable LEVEL 4
+const cave = document.getElementById("Cave");
+const caveScore = document.getElementById("CaveScore");
+const caveMouseEaten = document.getElementById("CaveMouseEaten");
+const caveCanvas = document.getElementById("CaveCanvas");
+const caveBackToMenu = document.getElementById("caveBackToMenu");
+
+// declare for loop obstacle
+let obstacleLoop = null;
+let levelStartTime =0;
+const spiderImg2 = new Image();
+spiderImg2.src = "Assets/Img/spider2.png";
 
 
 
@@ -78,6 +90,9 @@ forestCanvas.height = gridSize*cellSize;
 // canvas for level 3
 swarmCanvas.width = gridSize*cellSize;
 swarmCanvas.height = gridSize*cellSize;
+// canvas for level 4
+caveCanvas.width = gridSize*cellSize;
+caveCanvas.height = gridSize*cellSize;
 // current game state
 let gameLoop = null;
 let currentLevelName = null;
@@ -201,9 +216,51 @@ const levels ={
             { x: 22, y: 12 }
         ],
         hasSpider: true,
-        spiderCount: 5,
+        spiderCount: 7,
         spiderImage: spiderImg,
-        spiderSpeed: 450
+        spiderSpeed: 550
+
+    },
+    cave:{
+        name: "Cave",
+        screen: cave,
+        canvas: caveCanvas,
+        scoreElement: caveScore,
+        targetScore: 7,
+        mouseElement: caveMouseEaten,
+        backgroundColor: "#292d3e",
+        gridColor: "#3b4054",
+        snakeHeadColor: "#b5d66b",
+        snakeBodyColor: "#6b9b4a",
+        snakeSpeed: 150,
+        foodColor:"#da0e32",
+        obstaclesColor: "#777b8c",
+        obstacles:[
+            { x: 8, y: 5 , visible: true, phaseOffset:1},
+            { x: 8, y: 6 , visible: true, phaseOffset:1},
+            { x: 8, y: 7 , visible: true, phaseOffset:1},
+            { x: 8, y: 8 , visible: true, phaseOffset:1},
+            { x: 15, y: 13 , visible: true, phaseOffset:2},
+            { x: 16, y: 13 , visible: true, phaseOffset:2},
+            { x: 17, y: 13 , visible: true, phaseOffset:2},
+            { x: 9, y: 17 , visible: true, phaseOffset:3},
+            { x: 9, y: 18 , visible: true, phaseOffset:3},
+            { x: 9, y: 19 , visible: true, phaseOffset:3},
+            { x: 19, y: 2 , visible: true, phaseOffset:1},
+            { x: 20, y: 2 , visible: true, phaseOffset:1},
+            { x: 21, y: 2 , visible: true, phaseOffset:2},
+            { x: 25, y: 6 , visible: true, phaseOffset:2},
+            { x: 24, y: 6 , visible: true, phaseOffset:2},
+            { x: 11, y: 20 , visible: true, phaseOffset:0},
+            { x: 12, y: 20 , visible: true, phaseOffset:0},
+            { x: 13, y: 20 , visible: true, phaseOffset:3},
+            { x: 14, y: 20 , visible: true, phaseOffset:3},
+            { x: 8, y: 15 , visible: true, phaseOffset:0},
+        ],
+        hasSpider: true,
+        spiderCount: 3,
+        spiderImage: spiderImg2,
+        spiderSpeed: 600,
 
     }
 
@@ -214,70 +271,85 @@ const levels ={
 // funtion tranform level or menu in here
 // function define for start level
 function startLevel(levelName){
-    if (gameLoop !== null){
-        clearInterval(gameLoop);
-        gameLoop = null;
+        if (gameLoop !== null){
+            clearInterval(gameLoop);
+            gameLoop = null;
+        }
+        if (knightLoop !== null) {
+            clearInterval(knightLoop);
+            knightLoop = null;
+        }
+        knight = null;
+        if (spiderLoop !== null) {
+            clearInterval(spiderLoop);
+            spiderLoop = null;
+        }
+        spiders= [];
+        if(obstacleLoop !== null){
+            clearInterval(obstacleLoop);
+            obstacleLoop = null;
+        }
+
+
+
+
+
+
+
+
+        currentLevelName=levelName;
+        activeLevel=levels[levelName];
+        activeCtx=activeLevel.canvas.getContext("2d");
+
+
+
+
+
+        menu.hidden = true;
+        winScreen.hidden = true;
+        gameOverScreen.hidden = true;
+        forest.hidden = true;
+        village.hidden = true;
+        swarm.hidden = true;
+        cave.hidden = true;
+        activeLevel.screen.hidden = false;
+
+
+
+        score=0;
+        activeLevel.scoreElement.textContent = 0;
+        activeLevel.mouseElement.textContent =0;
+        snake =[
+            { x: 3, y: 10 },
+            { x: 2, y: 10 },
+            { x: 1, y: 10 }
+        ]
+        direction = { x: 1, y: 0 };
+        nextDirection = { x: 1, y: 0 };
+
+        if (currentLevelName === "cave"){
+            levelStartTime=Date.now();
+            for (const obstacle of activeLevel.obstacles){
+                obstacle.visible = true;
+            }
+            updateObstacles();
+        }
+
+
+
+        if(activeLevel.hasSpider){
+            createSpider();
+        }
+        createFood();
+         drawGame();
+        gameLoop = setInterval(moveSnake, activeLevel.snakeSpeed);
+        if (activeLevel.hasSpider) {
+            spiderLoop = setInterval(moveSpider, activeLevel.spiderSpeed);
+        }
+        if(currentLevelName === "cave"){
+            obstacleLoop= setInterval(updateObstacles, 100);
+        }
     }
-    if (knightLoop !== null) {
-        clearInterval(knightLoop);
-        knightLoop = null;
-    }
-    knight = null;
-    if (spiderLoop !== null) {
-        clearInterval(spiderLoop);
-        spiderLoop = null;
-    }
-    spiders= [];
-
-
-
-
-
-
-
-
-    currentLevelName=levelName;
-    activeLevel=levels[levelName];
-    activeCtx=activeLevel.canvas.getContext("2d");
-
-
-
-
-
-    menu.hidden = true;
-    winScreen.hidden = true;
-    gameOverScreen.hidden = true;
-    forest.hidden = true;
-    village.hidden = true;
-    swarm.hidden = true;
-    activeLevel.screen.hidden = false;
-
-
-
-    score=0;
-    activeLevel.scoreElement.textContent = 0;
-    activeLevel.mouseElement.textContent =0;
-    snake =[
-        { x: 3, y: 10 },
-        { x: 2, y: 10 },
-        { x: 1, y: 10 }
-    ]
-    direction = { x: 1, y: 0 };
-    nextDirection = { x: 1, y: 0 };
-
-
-
-
-    if(activeLevel.hasSpider){
-        createSpider();
-    }
-    createFood();
-     drawGame();
-    gameLoop = setInterval(moveSnake, activeLevel.snakeSpeed);
-    if (activeLevel.hasSpider) {
-        spiderLoop = setInterval(moveSpider, activeLevel.spiderSpeed);
-    }
-}
 
 // function define win game
 function winGame(){
@@ -293,6 +365,9 @@ function winGame(){
         nextLevelButton.hidden = false;
     }else if(currentLevelName === "swarm"){
         winMessage.textContent = "YOU HAVE COMPLETED SWARM!";
+        nextLevelButton.hidden = false;
+    }else if (currentLevelName === "cave"){
+        winMessage.textContent = "YOU HAVE COMPLETED CAVE!";
         nextLevelButton.hidden = false;
     }
 }
@@ -319,6 +394,10 @@ function stopGameLoop(){
         clearInterval(spiderLoop);
         spiderLoop = null;
     }
+    if(obstacleLoop !== null){
+        clearInterval(obstacleLoop);
+        obstacleLoop = null;
+    }
 }
 //funtion define back to menu
 function backToMenu(){
@@ -326,6 +405,7 @@ function backToMenu(){
     village.hidden = true;
     forest.hidden = true;
     swarm.hidden = true;
+    cave.hidden = true;
     winScreen.hidden = true;
 
     gameOverScreen.hidden = true;
@@ -419,6 +499,9 @@ function drawBackground(){
 // draw obstacles
 function drawObtacles(){
     for(const obstacle of activeLevel.obstacles){
+        if (currentLevelName === "cave" && !obstacle.visible){
+            continue;
+        }
         activeCtx.fillStyle = activeLevel.obstaclesColor;
         activeCtx.fillRect(obstacle.x*cellSize+1,obstacle.y*cellSize+1,cellSize-2,cellSize-2);
         // this is more design
@@ -457,7 +540,13 @@ function moveSnake(){
         return;
     }
     // check collision obstacles
-    const hitObstacle = activeLevel.obstacles.some(obstacle =>obstacle.x === newHead.x && obstacle.y === newHead.y);
+    const hitObstacle = activeLevel.obstacles.some(obstacle =>{
+        if(currentLevelName === "cave" && !obstacle.visible){
+            return false;
+        }
+         return obstacle.x === newHead.x && obstacle.y === newHead.y
+    });
+
     if(hitObstacle){
         loseGame();
         return;
@@ -688,7 +777,7 @@ function drawSpider(){
         return;
     }
     const imageSpider = activeLevel.spiderImage;
-    for(spider of spiders){
+    for(const spider of spiders){
         const x = spider.x*cellSize;
         const y = spider.y*cellSize;
         activeCtx.drawImage(imageSpider, x,y,cellSize,cellSize);
@@ -696,7 +785,7 @@ function drawSpider(){
 }
 // function move random for all spider
 function moveSpider(){
-    if (!activeLevel.hasSpider|| currentLevelName!=="swarm"){
+    if (!activeLevel.hasSpider|| (currentLevelName!=="swarm"&& currentLevelName!=="cave")){
         return;
     }
     const directions =  [
@@ -716,7 +805,11 @@ function moveSpider(){
             }
             // check obstacles
             const hitObstacle = activeLevel.obstacles.some(
-                obstacle=>obstacle.x===nextX && obstacle.y===nextY
+                obstacle=>{
+                    if(currentLevelName==="cave"&&!obstacle.visible){
+                        return false;
+                    }
+                     return obstacle.x===nextX && obstacle.y===nextY}
             );
             if (hitObstacle){
                 continue;
@@ -742,6 +835,29 @@ function moveSpider(){
     drawGame();
 }
 
+
+
+
+// -----------------------------------
+// special for level 4
+function updateObstacles(){
+    if(currentLevelName!=="cave"){
+        return;
+    }
+    const elapedTime =(Date.now()-levelStartTime)/1000;
+    let hasChanged = false;
+    for(const obstacle of activeLevel.obstacles){
+        const time =(elapedTime + obstacle.phaseOffset)%6;
+        const shouldBeVisible =time<3;
+        if(obstacle.visible!==shouldBeVisible){
+            obstacle.visible=shouldBeVisible;
+            hasChanged = true;
+        }
+    }
+    if (hasChanged){
+        drawGame();
+    }
+}
 
 
 
@@ -806,6 +922,8 @@ nextLevelButton.addEventListener("click",
         startLevel("forest")
     }else if(currentLevelName==="forest"){
         startLevel("swarm");
+    }else if(currentLevelName==="swarm"){
+        startLevel("cave");
     }
     });
 retryButton.addEventListener("click",
@@ -817,6 +935,7 @@ retryButton.addEventListener("click",
 backToMenuButton.addEventListener("click", backToMenu);
 forestBackToMenu.addEventListener("click", backToMenu);
 swarmBackToMenu.addEventListener("click",backToMenu)
+caveBackToMenu.addEventListener("click",backToMenu);
 winBackToMenu.addEventListener("click", backToMenu);
 gameOverBackToMenu.addEventListener("click", backToMenu);
 

@@ -102,6 +102,7 @@ button:focus-visible {
 
 #Village,
 #Swarm,
+#Cave,
 #Forest {
   min-height: 100vh;
   padding: 24px;
@@ -117,6 +118,7 @@ button:focus-visible {
 }
 #Village .GameHeader,
 #Swarm .GameHeader,
+#Cave .GameHeader,
 #Forest .GameHeader {
   display: flex;
   width: 550px;
@@ -125,6 +127,7 @@ button:focus-visible {
 }
 #Village .GameHeader h2,
 #Swarm .GameHeader h2,
+#Cave .GameHeader h2,
 #Forest .GameHeader h2 {
   margin: 0;
   color: #6dc39b;
@@ -132,6 +135,7 @@ button:focus-visible {
 }
 #Village .GameHeader .GameStates,
 #Swarm .GameHeader .GameStates,
+#Cave .GameHeader .GameStates,
 #Forest .GameHeader .GameStates {
   display: flex;
   gap: 20px;
@@ -139,17 +143,25 @@ button:focus-visible {
 }
 #Village .GameHeader .GameStates strong,
 #Swarm .GameHeader .GameStates strong,
+#Cave .GameHeader .GameStates strong,
 #Forest .GameHeader .GameStates strong {
   color: #6dc39b;
 }
 #Village #GameCanvas,
 #Village #SwarmCanvas,
+#Village #CaveCanvas,
 #Village #ForestCanvas,
 #Swarm #GameCanvas,
 #Swarm #SwarmCanvas,
+#Swarm #CaveCanvas,
 #Swarm #ForestCanvas,
+#Cave #GameCanvas,
+#Cave #SwarmCanvas,
+#Cave #CaveCanvas,
+#Cave #ForestCanvas,
 #Forest #GameCanvas,
 #Forest #SwarmCanvas,
+#Forest #CaveCanvas,
 #Forest #ForestCanvas {
   display: block;
   width: 550px;
@@ -161,6 +173,7 @@ button:focus-visible {
 }
 #Village .GameHint,
 #Swarm .GameHint,
+#Cave .GameHint,
 #Forest .GameHint {
   margin: 0;
   color: #c5d5b7;
@@ -169,12 +182,19 @@ button:focus-visible {
 }
 #Village #backToMenu,
 #Village #swarmBackToMenu,
+#Village #caveBackToMenu,
 #Village #forestBackToMenu,
 #Swarm #backToMenu,
 #Swarm #swarmBackToMenu,
+#Swarm #caveBackToMenu,
 #Swarm #forestBackToMenu,
+#Cave #backToMenu,
+#Cave #swarmBackToMenu,
+#Cave #caveBackToMenu,
+#Cave #forestBackToMenu,
 #Forest #backToMenu,
 #Forest #swarmBackToMenu,
+#Forest #caveBackToMenu,
 #Forest #forestBackToMenu {
   padding: 12px 16px;
   color: #f5f0d8;
@@ -185,12 +205,19 @@ button:focus-visible {
   border-radius: 10px;
 }
 #Village #backToMenu:active,
+#Village #caveBackToMenu:active,
 #Village #swarmBackToMenu:active,
 #Village #forestBackToMenu:active,
 #Swarm #backToMenu:active,
+#Swarm #caveBackToMenu:active,
 #Swarm #swarmBackToMenu:active,
 #Swarm #forestBackToMenu:active,
+#Cave #backToMenu:active,
+#Cave #caveBackToMenu:active,
+#Cave #swarmBackToMenu:active,
+#Cave #forestBackToMenu:active,
 #Forest #backToMenu:active,
+#Forest #caveBackToMenu:active,
 #Forest #swarmBackToMenu:active,
 #Forest #forestBackToMenu:active {
   background: #267d26;

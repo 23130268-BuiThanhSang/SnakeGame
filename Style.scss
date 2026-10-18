@@ -112,6 +112,7 @@ button:focus-visible{
 //this is  css for level 1 village BUI THANH SANG 23130268 Comment
 #Village,
 #Swarm,
+#Cave,
 #Forest {
   min-height:100vh;
   padding: 24px;
@@ -148,6 +149,7 @@ button:focus-visible{
   }
   #GameCanvas,
   #SwarmCanvas,
+  #CaveCanvas,
   #ForestCanvas{
     display:block;
     width: $game-width;
@@ -165,6 +167,7 @@ button:focus-visible{
   }
   #backToMenu,
   #swarmBackToMenu,
+  #caveBackToMenu,
   #forestBackToMenu{
     padding: 12px 16px;
     color:$color-text;
@@ -175,6 +178,7 @@ button:focus-visible{
     border-radius: 10px;
   }
   #backToMenu:active,
+  #caveBackToMenu:active,
   #swarmBackToMenu:active,
   #forestBackToMenu:active{
     background: #267d26;
