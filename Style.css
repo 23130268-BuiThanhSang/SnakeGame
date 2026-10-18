@@ -25,7 +25,7 @@ button {
 }
 
 button:focus-visible {
-  outline: 3px solid #6dc39b;
+  outline: 3px solid white;
   outline-offset: 4px;
 }
 
@@ -69,7 +69,7 @@ button:focus-visible {
 }
 #Menu .MenuContent .GameTitle {
   margin: 0;
-  color: #6dc39b;
+  color: white;
   font-size: 40px;
   line-height: 1.8;
   text-align: center;
@@ -91,7 +91,7 @@ button:focus-visible {
   text-transform: uppercase;
   line-height: 1.8;
   background: #043304;
-  border: 2px solid #6dc39b;
+  border: 2px solid white;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgb(93, 166, 132);
 }
@@ -130,7 +130,7 @@ button:focus-visible {
 #Cave .GameHeader h2,
 #Forest .GameHeader h2 {
   margin: 0;
-  color: #6dc39b;
+  color: white;
   font-size: 20px;
 }
 #Village .GameHeader .GameStates,
@@ -145,7 +145,7 @@ button:focus-visible {
 #Swarm .GameHeader .GameStates strong,
 #Cave .GameHeader .GameStates strong,
 #Forest .GameHeader .GameStates strong {
-  color: #6dc39b;
+  color: white;
 }
 #Village #GameCanvas,
 #Village #SwarmCanvas,
@@ -201,7 +201,7 @@ button:focus-visible {
   font-size: 10px;
   line-height: 1.8;
   background: #135e13;
-  border: 2px solid #6dc39b;
+  border: 2px solid white;
   border-radius: 10px;
 }
 #Village #backToMenu:active,
@@ -245,7 +245,7 @@ button:focus-visible {
   background: #182719;
 }
 #WinScreen .WinContent h1 {
-  color: #6dc39b;
+  color: white;
   font-size: 32px;
   line-height: 1.8;
   margin: 0 0 30px;
@@ -264,7 +264,7 @@ button:focus-visible {
   line-height: 1.8;
   color: #f5f0d8;
   background: #182719;
-  border: 2px solid #6dc39b;
+  border: 2px solid white;
   border-radius: 8px;
   cursor: pointer;
 }
@@ -334,6 +334,69 @@ button:focus-visible {
 #ForestCanvas {
   background: #426b35;
   border-color: #526b3c;
+}
+
+#SelectLevel {
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  background-image: url("Assets/Img/BackgroundMenu.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#SelectLevel .LevelSelectionContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#SelectLevel .LevelSelectionContent .GameTitle {
+  font-size: 40px;
+  color: white;
+}
+#SelectLevel .LevelSelectionContent .LevelButtons {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+#SelectLevel .LevelSelectionContent .LevelButtons .MenuButton {
+  width: 100%;
+  min-height: 60px;
+  padding: 20px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  background: #182719;
+  border: 2px solid #8d7047;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgb(93, 166, 132);
+  overflow-wrap: anywhere;
+}
+#SelectLevel .LevelSelectionContent .LevelButtons .MenuButton:hover {
+  background: #135e13;
+}
+#SelectLevel .LevelSelectionContent .LevelButtons .MenuButton:active {
+  background: #267d26;
+}
+#SelectLevel #LevelBackToMenu {
+  padding: 12px 16px;
+  color: #f5f0d8;
+  font-size: 10px;
+  line-height: 1.8;
+  background: #135e13;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+#SelectLevel #LevelBackToMenu:active {
+  background: #267d26;
 }
 
 [hidden] {

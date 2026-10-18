@@ -4,7 +4,14 @@
 const menu =document.getElementById("Menu");
 const village = document.getElementById("Village");
 const playButton = document.getElementById("playButton");
+// declare for choose level(chapters)
 const selectChapterButton = document.getElementById("selectChapterButton");
+const selectLevel = document.getElementById("SelectLevel");
+const level1Button = document.getElementById("Level1Button");
+const level2Button = document.getElementById("Level2Button");
+const level3Button = document.getElementById("Level3Button");
+const level4Button = document.getElementById("Level4Button");
+const levelBackToMenu = document.getElementById("LevelBackToMenu");
 ///
 const backToMenuButton = document.getElementById("backToMenu");
 const canvas = document.getElementById("GameCanvas");
@@ -916,6 +923,35 @@ playButton.addEventListener("click",
     function(){
         startLevel("village")
     });
+selectChapterButton.addEventListener("click",
+    function (){
+    menu.hidden=true;
+    selectLevel.hidden=false;
+    }
+    );
+level1Button.addEventListener("click",
+    function (){
+    startLevel("village");
+    }
+    );
+level2Button.addEventListener("click",
+    function (){
+        startLevel("forest");
+    }
+);
+
+level3Button.addEventListener("click",
+    function (){
+        startLevel("swarm");
+    }
+);
+
+level4Button.addEventListener("click",
+    function (){
+        startLevel("cave");
+    }
+);
+
 nextLevelButton.addEventListener("click",
     function(){
     if (currentLevelName==="village"){
@@ -938,4 +974,5 @@ swarmBackToMenu.addEventListener("click",backToMenu)
 caveBackToMenu.addEventListener("click",backToMenu);
 winBackToMenu.addEventListener("click", backToMenu);
 gameOverBackToMenu.addEventListener("click", backToMenu);
+levelBackToMenu.addEventListener("click", backToMenu);
 
