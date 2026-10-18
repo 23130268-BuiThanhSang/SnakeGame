@@ -17,13 +17,13 @@
             <div class="MenuButtons">
                 <button id="playButton" class="MenuButton">Play Game</button>
                 <button id="selectChapterButton" class="MenuButton">Select Chapters</button>
-                <button id="storyButton" class="MenuButton">Story</button>
+<!--                <button id="storyButton" class="MenuButton">Story</button>-->
             </div>
         </div>
     </section>
     <section id="Village" class="Screen" hidden>
         <header class="GameHeader">
-            <h2>VILLAGE</h2>
+            <h2>LEVEl 1: VILLAGE</h2>
             <div class="GameStates">
                 <span>SCORE:<strong id="Score">0</strong></span>
                 <span>MOUSE:<strong id="mouseEaten">0</strong></span>
@@ -40,7 +40,7 @@
     <section id="WinScreen" class="Screen" hidden>
         <div class="WinContent">
             <h1>YOU WIN!</h1>
-            <p>YOU HAVE COMPLETED VILLAGE!</p>
+            <p id="WinMessage">YOU HAVE COMPLETED VILLAGE!</p>
             <p>SCORE: <span id="FinalScore">0</span></p>
             <button id="winBackToMenu" type="button">
                 Back To Menu
@@ -63,6 +63,25 @@
             </button>
         </div>
     </section>
+
+    <section id="Forest" class="Screen" hidden>
+        <header class="GameHeader">
+            <h2>LEVEL 2: FOREST</h2>
+            <div class="GameStates">
+                <span>SCORE:<strong id="ForestScore">0</strong></span>
+                <span>MOUSE:<strong id="ForestMouseEaten">0</strong></span>
+            </div>
+        </header>
+        <canvas id="ForestCanvas"></canvas>
+        <p class="GameHint">
+            Move: Arrow Key / WASD
+        </p>
+        <button id="forestBackToMenu" type="button">
+            Back To Menu
+        </button>
+    </section>
+
+
 
 </main>
 <script src="Main.js"></script>
