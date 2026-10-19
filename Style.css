@@ -103,6 +103,7 @@ button:focus-visible {
 #Village,
 #Swarm,
 #Cave,
+#MineField,
 #Forest {
   min-height: 100vh;
   padding: 24px;
@@ -119,6 +120,7 @@ button:focus-visible {
 #Village .GameHeader,
 #Swarm .GameHeader,
 #Cave .GameHeader,
+#MineField .GameHeader,
 #Forest .GameHeader {
   display: flex;
   width: 550px;
@@ -128,14 +130,16 @@ button:focus-visible {
 #Village .GameHeader h2,
 #Swarm .GameHeader h2,
 #Cave .GameHeader h2,
+#MineField .GameHeader h2,
 #Forest .GameHeader h2 {
   margin: 0;
   color: white;
-  font-size: 20px;
+  font-size: 15px;
 }
 #Village .GameHeader .GameStates,
 #Swarm .GameHeader .GameStates,
 #Cave .GameHeader .GameStates,
+#MineField .GameHeader .GameStates,
 #Forest .GameHeader .GameStates {
   display: flex;
   gap: 20px;
@@ -144,24 +148,34 @@ button:focus-visible {
 #Village .GameHeader .GameStates strong,
 #Swarm .GameHeader .GameStates strong,
 #Cave .GameHeader .GameStates strong,
+#MineField .GameHeader .GameStates strong,
 #Forest .GameHeader .GameStates strong {
   color: white;
 }
 #Village #GameCanvas,
 #Village #SwarmCanvas,
 #Village #CaveCanvas,
+#Village #MineFieldCanvas,
 #Village #ForestCanvas,
 #Swarm #GameCanvas,
 #Swarm #SwarmCanvas,
 #Swarm #CaveCanvas,
+#Swarm #MineFieldCanvas,
 #Swarm #ForestCanvas,
 #Cave #GameCanvas,
 #Cave #SwarmCanvas,
 #Cave #CaveCanvas,
+#Cave #MineFieldCanvas,
 #Cave #ForestCanvas,
+#MineField #GameCanvas,
+#MineField #SwarmCanvas,
+#MineField #CaveCanvas,
+#MineField #MineFieldCanvas,
+#MineField #ForestCanvas,
 #Forest #GameCanvas,
 #Forest #SwarmCanvas,
 #Forest #CaveCanvas,
+#Forest #MineFieldCanvas,
 #Forest #ForestCanvas {
   display: block;
   width: 550px;
@@ -174,6 +188,7 @@ button:focus-visible {
 #Village .GameHint,
 #Swarm .GameHint,
 #Cave .GameHint,
+#MineField .GameHint,
 #Forest .GameHint {
   margin: 0;
   color: #c5d5b7;
@@ -183,18 +198,27 @@ button:focus-visible {
 #Village #backToMenu,
 #Village #swarmBackToMenu,
 #Village #caveBackToMenu,
+#Village #mineFieldBackToMenu,
 #Village #forestBackToMenu,
 #Swarm #backToMenu,
 #Swarm #swarmBackToMenu,
 #Swarm #caveBackToMenu,
+#Swarm #mineFieldBackToMenu,
 #Swarm #forestBackToMenu,
 #Cave #backToMenu,
 #Cave #swarmBackToMenu,
 #Cave #caveBackToMenu,
+#Cave #mineFieldBackToMenu,
 #Cave #forestBackToMenu,
+#MineField #backToMenu,
+#MineField #swarmBackToMenu,
+#MineField #caveBackToMenu,
+#MineField #mineFieldBackToMenu,
+#MineField #forestBackToMenu,
 #Forest #backToMenu,
 #Forest #swarmBackToMenu,
 #Forest #caveBackToMenu,
+#Forest #mineFieldBackToMenu,
 #Forest #forestBackToMenu {
   padding: 12px 16px;
   color: #f5f0d8;
@@ -207,18 +231,27 @@ button:focus-visible {
 #Village #backToMenu:active,
 #Village #caveBackToMenu:active,
 #Village #swarmBackToMenu:active,
+#Village #caveBackToMenu:active,
 #Village #forestBackToMenu:active,
 #Swarm #backToMenu:active,
 #Swarm #caveBackToMenu:active,
 #Swarm #swarmBackToMenu:active,
+#Swarm #caveBackToMenu:active,
 #Swarm #forestBackToMenu:active,
 #Cave #backToMenu:active,
 #Cave #caveBackToMenu:active,
 #Cave #swarmBackToMenu:active,
+#Cave #caveBackToMenu:active,
 #Cave #forestBackToMenu:active,
+#MineField #backToMenu:active,
+#MineField #caveBackToMenu:active,
+#MineField #swarmBackToMenu:active,
+#MineField #caveBackToMenu:active,
+#MineField #forestBackToMenu:active,
 #Forest #backToMenu:active,
 #Forest #caveBackToMenu:active,
 #Forest #swarmBackToMenu:active,
+#Forest #caveBackToMenu:active,
 #Forest #forestBackToMenu:active {
   background: #267d26;
 }

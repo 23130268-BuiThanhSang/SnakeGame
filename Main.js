@@ -11,6 +11,7 @@ const level1Button = document.getElementById("Level1Button");
 const level2Button = document.getElementById("Level2Button");
 const level3Button = document.getElementById("Level3Button");
 const level4Button = document.getElementById("Level4Button");
+const level5Button = document.getElementById("Level5Button");
 const levelBackToMenu = document.getElementById("LevelBackToMenu");
 ///
 const backToMenuButton = document.getElementById("backToMenu");
@@ -74,6 +75,20 @@ const spiderImg2 = new Image();
 spiderImg2.src = "Assets/Img/spider2.png";
 
 
+// ---------------------------variable LEVEL 5
+const mineField = document.getElementById("MineField");
+const mineFieldScore = document.getElementById("MineFieldScore");
+const mineFieldMouseEaten = document.getElementById("MineFieldMouseEaten");
+const mineFieldCanvas = document.getElementById("MineFieldCanvas");
+const mineFieldBackToMenu = document.getElementById("mineFieldBackToMenu");
+
+
+// declare for mine
+let mines =[];
+let mineSpawnTimer = null;
+let mineCountDownTimer = null;
+
+
 
 
 
@@ -100,6 +115,9 @@ swarmCanvas.height = gridSize*cellSize;
 // canvas for level 4
 caveCanvas.width = gridSize*cellSize;
 caveCanvas.height = gridSize*cellSize;
+// canvas for level 5
+mineFieldCanvas.width = gridSize*cellSize;
+mineFieldCanvas.height = gridSize*cellSize;
 // current game state
 let gameLoop = null;
 let currentLevelName = null;
@@ -161,33 +179,54 @@ const levels ={
             { x: 8, y: 5 },
             { x: 8, y: 6 },
             { x: 8, y: 7 },
-            { x: 8, y: 8 },
-            { x: 8, y: 9 },
-            { x: 15, y: 13 },
-            { x: 16, y: 13 },
-            { x: 17, y: 13 },
-            { x: 18, y: 13 },
+
             { x: 19, y: 9 },
-            { x: 20, y: 4 },
-            { x: 20, y: 5 },
-            { x: 20, y: 6 },
+
             { x: 22, y: 7 },
             { x: 7, y: 18 },
             { x: 7, y: 19 },
             { x: 7, y: 20 },
-            { x: 12, y: 3 },
+            { x: 7, y: 21 },
             { x: 13, y: 3 },
             { x: 14, y: 3 },
             { x: 14, y: 4 },
             { x: 14, y: 5 },
+            { x: 14, y: 6 },
             { x: 18, y: 19 },
             { x: 19, y: 19 },
             { x: 20, y: 19 },
             { x: 20, y: 20 },
             { x: 20, y: 21 },
-            { x: 22, y: 10 },
-            { x: 22, y: 11 },
-            { x: 22, y: 12 }
+            { x: 21, y: 19 },
+
+            { x: 4, y: 5 },
+            { x: 6, y: 5 },
+            { x: 4, y: 6 },
+            { x: 4, y: 7 },
+            { x: 6, y: 7 },
+            { x: 10, y: 16 },
+            { x: 11, y: 16 },
+            { x: 12, y: 16 },
+            { x: 13, y: 16 },
+            { x: 16, y: 6 },
+            { x: 16, y: 7 },
+            { x: 16, y: 8 },
+            { x: 17, y: 8 },
+            { x: 18, y: 8 },
+            { x: 3, y: 13 },
+            { x: 4, y: 13 },
+
+
+            { x: 10, y: 22 },
+            { x: 11, y: 22 },
+            { x: 12, y: 22 },
+            { x: 13, y: 22 },
+            { x: 16, y: 22 },
+            { x: 17, y: 22 },
+            { x: 18, y: 22 },
+            { x: 23, y: 16 },
+            { x: 23, y: 17 },
+            { x: 23, y: 18 }
         ]
 
     },
@@ -269,6 +308,76 @@ const levels ={
         spiderImage: spiderImg2,
         spiderSpeed: 600,
 
+    },
+    mineField:{
+        name: "MineField",
+        screen: mineField,
+        canvas: mineFieldCanvas,
+        scoreElement: mineFieldScore,
+        targetScore: 9,
+        mouseElement:mineFieldMouseEaten,
+        backgroundColor: "#33352e",
+        gridColor: "#4a4d40",
+        snakeHeadColor: "#b5d66b",
+        snakeBodyColor: "#6b9b4a",
+        snakeSpeed: 150,
+        foodColor: "#da0e32",
+        obstaclesColor: "#493d2c",
+        obstacles:[
+            { x: 8, y: 5 },
+            { x: 8, y: 6 },
+            { x: 8, y: 7 },
+
+            { x: 19, y: 9 },
+
+            { x: 22, y: 7 },
+            { x: 7, y: 18 },
+            { x: 7, y: 19 },
+            { x: 7, y: 20 },
+            { x: 7, y: 21 },
+            { x: 13, y: 3 },
+            { x: 14, y: 3 },
+            { x: 14, y: 4 },
+            { x: 14, y: 5 },
+            { x: 14, y: 6 },
+            { x: 18, y: 19 },
+            { x: 19, y: 19 },
+            { x: 20, y: 19 },
+            { x: 20, y: 20 },
+            { x: 20, y: 21 },
+            { x: 21, y: 19 },
+
+            { x: 4, y: 5 },
+            { x: 6, y: 5 },
+            { x: 4, y: 6 },
+            { x: 4, y: 7 },
+            { x: 6, y: 7 },
+            { x: 10, y: 16 },
+            { x: 11, y: 16 },
+            { x: 12, y: 16 },
+            { x: 13, y: 16 },
+            { x: 16, y: 6 },
+            { x: 16, y: 7 },
+            { x: 16, y: 8 },
+            { x: 17, y: 8 },
+            { x: 18, y: 8 },
+            { x: 3, y: 13 },
+            { x: 4, y: 13 },
+
+
+            { x: 10, y: 22 },
+            { x: 11, y: 22 },
+            { x: 12, y: 22 },
+            { x: 13, y: 22 },
+            { x: 16, y: 22 },
+            { x: 17, y: 22 },
+            { x: 18, y: 22 },
+            { x: 23, y: 16 },
+            { x: 23, y: 17 },
+            { x: 23, y: 18 }],
+        mineCount:20,
+        mineColor: "#4a0d18",
+        mineTimeCountDown: 10,
     }
 
 }
@@ -296,6 +405,14 @@ function startLevel(levelName){
             clearInterval(obstacleLoop);
             obstacleLoop = null;
         }
+        if (mineCountDownTimer!==null){
+            clearInterval(mineCountDownTimer);
+            mineCountDownTimer = null;
+        }
+        if (mineSpawnTimer!==null){
+            clearInterval(mineSpawnTimer);
+            mineSpawnTimer = null;
+        }
 
 
 
@@ -311,7 +428,7 @@ function startLevel(levelName){
 
 
 
-
+        selectLevel.hidden=true;
         menu.hidden = true;
         winScreen.hidden = true;
         gameOverScreen.hidden = true;
@@ -319,6 +436,7 @@ function startLevel(levelName){
         village.hidden = true;
         swarm.hidden = true;
         cave.hidden = true;
+        mineField.hidden = true;
         activeLevel.screen.hidden = false;
 
 
@@ -333,7 +451,7 @@ function startLevel(levelName){
         ]
         direction = { x: 1, y: 0 };
         nextDirection = { x: 1, y: 0 };
-
+        mines=[];
         if (currentLevelName === "cave"){
             levelStartTime=Date.now();
             for (const obstacle of activeLevel.obstacles){
@@ -356,6 +474,10 @@ function startLevel(levelName){
         if(currentLevelName === "cave"){
             obstacleLoop= setInterval(updateObstacles, 100);
         }
+        if (currentLevelName === "mineField"){
+            startSpawnMine();
+            startMineCountDown();
+        }
     }
 
 // function define win game
@@ -376,12 +498,16 @@ function winGame(){
     }else if (currentLevelName === "cave"){
         winMessage.textContent = "YOU HAVE COMPLETED CAVE!";
         nextLevelButton.hidden = false;
+    }else if(currentLevelName === "mineField"){
+        winMessage.textContent = "YOU HAVE COMPLETED MINE FIELD!";
+        nextLevelButton.hidden = false;
     }
 }
 // function define lose game
 function loseGame(){
     stopGameLoop();
     activeLevel.screen.hidden = true;
+    selectLevel.hidden=true;
     winScreen.hidden = true;
     gameOverScreen.hidden = false;
     gameOverScore.textContent = score*100;
@@ -405,6 +531,14 @@ function stopGameLoop(){
         clearInterval(obstacleLoop);
         obstacleLoop = null;
     }
+    if (mineSpawnTimer!==null){
+        clearInterval(mineSpawnTimer);
+        mineSpawnTimer = null;
+    }
+    if(mineCountDownTimer!==null){
+        clearInterval(mineCountDownTimer);
+        mineCountDownTimer = null;
+    }
 }
 //funtion define back to menu
 function backToMenu(){
@@ -413,6 +547,7 @@ function backToMenu(){
     forest.hidden = true;
     swarm.hidden = true;
     cave.hidden = true;
+    mineField.hidden = true;
     winScreen.hidden = true;
 
     gameOverScreen.hidden = true;
@@ -526,6 +661,7 @@ function drawGame(){
     drawKnight();
     drawFood();
     drawSpider();
+    drawMines();
 }
 // move for snake
 function moveSnake(){
@@ -566,6 +702,11 @@ function moveSnake(){
     // check colission spider
     const hitSpider = spiders.some(spider => spider.x === newHead.x && spider.y === newHead.y);
     if (hitSpider){
+        loseGame();
+        return;
+    }
+    // check explosion
+    if (checkMineExplosion()){
         loseGame();
         return;
     }
@@ -866,6 +1007,131 @@ function updateObstacles(){
     }
 }
 
+// ------------------------------------
+// special for level 5
+function spawnMine(){
+    if(currentLevelName!=="mineField"){
+        return;
+    }
+    const activeMines = mines.filter(mine => !mine.exploding);
+    if(activeMines.length>=activeLevel.mineCount){
+        return;
+    }
+    let x;
+    let y;
+    let validPosition=false;
+    let attempts = 0;
+    while(!validPosition && attempts<100){
+        x=Math.floor(Math.random()*(gridSize-2)+1);
+        y=Math.floor(Math.random()*(gridSize-2)+1);
+        attempts++;
+    //     check is snake
+        const isSnake = snake.some(segment => segment.x===x && segment.y===y);
+    //     check is food
+        const isFood = food.x===x&&food.y===y;
+    //     check is obstacle
+        const isObstacle = activeLevel.obstacles.some(obstacle=>obstacle.x===x && obstacle.y===y);
+    //     check is mine
+        const isMine = mines.some(mine => mine.x===x && mine.y===y);
+
+        if(isSnake===false&&isFood===false&&isObstacle===false&&isMine===false){
+            validPosition=true;
+        }
+    }
+    if (validPosition){
+        mines.push({
+            x: x,
+            y: y,
+            exploding: false,
+            timeLeft: activeLevel.mineTimeCountDown,
+            explosionTime:1
+        });
+    }
+
+}
+
+function updateMines(){
+    if(currentLevelName!=="mineField"){
+        return;
+    }
+    for(let i=mines.length-1;i>=0;i--){
+        const mine = mines[i];
+        if(mine.exploding===false){
+            mine.timeLeft --;
+            if (mine.timeLeft <= 0){
+                mine.exploding=true;
+                mine.explosionTime=1;
+            }
+        }else{
+            mine.explosionTime--;
+            if (mine.explosionTime <= 0){
+                mines.splice(i,1);
+            }
+        }
+    }
+}
+
+function checkMineExplosion(){
+    if (currentLevelName!=="mineField"){
+        return;
+    }
+    for (const mine of mines){
+        if (mine.exploding===true){
+            for (const segment of snake){
+                const distanceX = Math.abs(segment.x-mine.x);
+                const distanceY = Math.abs(segment.y-mine.y);
+                if (distanceX<=1&&distanceY<=1){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+function drawMines(){
+    if (currentLevelName!=="mineField"){
+        return;
+    }
+    activeCtx.textAlign="center";
+    activeCtx.textBaseline="middle";
+    for (const mine of mines){
+        if (mine.exploding===false){
+            activeCtx.fillStyle = activeLevel.mineColor;
+            activeCtx.fillRect(mine.x*cellSize,mine.y*cellSize,cellSize,cellSize);
+            activeCtx.fillStyle="white";
+            const secondLeft = Math.ceil(mine.timeLeft || 0);
+            activeCtx.fillText(secondLeft,mine.x*cellSize+(cellSize/2),mine.y*cellSize+(cellSize/2));
+        }else if(mine.exploding===true){
+            activeCtx.fillStyle="#e3851a";
+            for (let y=-1;y<=1;y++){
+                for (let x=-1;x<=1;x++){
+                    activeCtx.fillRect((mine.x+x)*cellSize,(mine.y+y)*cellSize,cellSize,cellSize);
+                }
+            }
+
+        }
+
+    }
+}
+
+function startSpawnMine(){
+    if(currentLevelName!=="mineField"){
+        return;
+    }
+    spawnMine();
+    mineSpawnTimer = setInterval(() => {spawnMine();},1000);
+}
+
+function startMineCountDown(){
+    if (mineCountDownTimer!==null){
+        clearInterval(mineCountDownTimer);
+        mineCountDownTimer = null;
+    }
+    mineCountDownTimer = setInterval(() => {updateMines(); drawGame();},500);
+}
+
+
 
 
 
@@ -951,6 +1217,11 @@ level4Button.addEventListener("click",
         startLevel("cave");
     }
 );
+level5Button.addEventListener("click",
+    function (){
+    startLevel("mineField");
+    }
+    );
 
 nextLevelButton.addEventListener("click",
     function(){
@@ -960,6 +1231,8 @@ nextLevelButton.addEventListener("click",
         startLevel("swarm");
     }else if(currentLevelName==="swarm"){
         startLevel("cave");
+    }else if (currentLevelName==="cave"){
+        startLevel("mineField");
     }
     });
 retryButton.addEventListener("click",
@@ -975,4 +1248,5 @@ caveBackToMenu.addEventListener("click",backToMenu);
 winBackToMenu.addEventListener("click", backToMenu);
 gameOverBackToMenu.addEventListener("click", backToMenu);
 levelBackToMenu.addEventListener("click", backToMenu);
+mineFieldBackToMenu.addEventListener("click",backToMenu)
 
