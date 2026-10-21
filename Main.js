@@ -170,8 +170,8 @@ const levels ={
         snakeBodyColor: "#ddb348",
         snakeSpeed: 150,
         hasKnight: true,
-        knightSpeed: 350,
-        knightAppearScore: 4,
+        knightSpeed: 450,
+        knightAppearScore: 0,
         knightImage: knightImg,
         foodColor: "#da0e32",
         obstaclesColor: "#6a2e14",
@@ -464,6 +464,9 @@ function startLevel(levelName){
 
         if(activeLevel.hasSpider){
             createSpider();
+        }
+        if (activeLevel.hasKnight){
+            spawnKnight();
         }
         createFood();
          drawGame();
