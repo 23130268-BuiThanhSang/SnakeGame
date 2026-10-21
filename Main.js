@@ -12,6 +12,7 @@ const level2Button = document.getElementById("Level2Button");
 const level3Button = document.getElementById("Level3Button");
 const level4Button = document.getElementById("Level4Button");
 const level5Button = document.getElementById("Level5Button");
+const level6Button = document.getElementById("Level6Button");
 const levelBackToMenu = document.getElementById("LevelBackToMenu");
 ///
 const backToMenuButton = document.getElementById("backToMenu");
@@ -89,6 +90,18 @@ let mineSpawnTimer = null;
 let mineCountDownTimer = null;
 
 
+// -------------------------variable LEVEL 6
+const volcano = document.getElementById("Volcano");
+const volcanoScore = document.getElementById("VolcanoScore");
+const volcanoMouseEaten = document.getElementById("VolcanoMouseEaten");
+const volcanoCanvas = document.getElementById("VolcanoCanvas");
+const volcanoBackToMenu = document.getElementById("volcanoBackToMenu");
+
+// declare for skill snake
+let poisonsExist =[];
+let snakePoisonLoop = null;
+
+
 
 
 
@@ -118,6 +131,9 @@ caveCanvas.height = gridSize*cellSize;
 // canvas for level 5
 mineFieldCanvas.width = gridSize*cellSize;
 mineFieldCanvas.height = gridSize*cellSize;
+// canvas for level 6
+volcanoCanvas.width = gridSize*cellSize;
+volcanoCanvas.height = gridSize*cellSize;
 // current game state
 let gameLoop = null;
 let currentLevelName = null;
@@ -378,7 +394,38 @@ const levels ={
         mineCount:20,
         mineColor: "#4a0d18",
         mineTimeCountDown: 10,
-    }
+    },
+        volcano:{
+            name: "Volcano",
+            screen: volcano,
+            canvas: volcanoCanvas,
+            scoreElement: volcanoScore,
+            mouseElement: volcanoMouseEaten,
+            targetScore: 5,
+            backgroundColor: "#171616",
+            gridColor:"#593333",
+            snakeHeadColor: "#1d3a12",
+            snakeBodyColor: "#42812a",
+            snakeSpeed: 150,
+            poisonKey:"q",
+            snakePoisonColor: "#a50dd8",
+            snakePoisonSpeed: 20,
+            snakePoisonDame:1,
+            foodColor: "#ecd90a",
+            obstaclesColor: "#493d2c",
+            obstacles:[],
+            dragonColor: "#510715",
+            dragonSize:4,
+            dragonSpeed: 150,
+            dragonHP: 5,
+            fireBreathColor:"#f80321",
+            fireBreathWarningColor: "#b52626",
+            fireBreathTimeCountDown: 10,
+            fireBreathSpeed: 150,
+
+
+
+        }
 
 }
 // ---------------------------------------------------------------------------------------------
@@ -413,6 +460,10 @@ function startLevel(levelName){
             clearInterval(mineSpawnTimer);
             mineSpawnTimer = null;
         }
+        if(snakePoisonLoop !== null){
+            clearInterval(snakePoisonLoop);
+            snakePoisonLoop = null;
+        }
 
 
 
@@ -437,6 +488,7 @@ function startLevel(levelName){
         swarm.hidden = true;
         cave.hidden = true;
         mineField.hidden = true;
+        volcano.hidden = true;
         activeLevel.screen.hidden = false;
 
 
@@ -452,6 +504,7 @@ function startLevel(levelName){
         direction = { x: 1, y: 0 };
         nextDirection = { x: 1, y: 0 };
         mines=[];
+        poisonsExist=[];
         if (currentLevelName === "cave"){
             levelStartTime=Date.now();
             for (const obstacle of activeLevel.obstacles){
@@ -481,6 +534,9 @@ function startLevel(levelName){
             startSpawnMine();
             startMineCountDown();
         }
+        if (currentLevelName === "volcano"){
+            snakePoisonLoop= setInterval(movePoison,activeLevel.snakePoisonSpeed);
+        }
     }
 
 // function define win game
@@ -504,6 +560,9 @@ function winGame(){
     }else if(currentLevelName === "mineField"){
         winMessage.textContent = "YOU HAVE COMPLETED MINE FIELD!";
         nextLevelButton.hidden = false;
+    }else if(currentLevelName === "volcano"){
+        winMessage.textContent = "YOU HAVE COMPLETED VOLCANO!";
+        nextLevelButton.hidden = true;
     }
 }
 // function define lose game
@@ -542,6 +601,10 @@ function stopGameLoop(){
         clearInterval(mineCountDownTimer);
         mineCountDownTimer = null;
     }
+    if (snakePoisonLoop !== null) {
+        clearInterval(snakePoisonLoop);
+        snakePoisonLoop = null;
+    }
 }
 //funtion define back to menu
 function backToMenu(){
@@ -551,6 +614,7 @@ function backToMenu(){
     swarm.hidden = true;
     cave.hidden = true;
     mineField.hidden = true;
+    volcano.hidden = true;
     winScreen.hidden = true;
 
     gameOverScreen.hidden = true;
@@ -665,6 +729,7 @@ function drawGame(){
     drawFood();
     drawSpider();
     drawMines();
+    drawPoison();
 }
 // move for snake
 function moveSnake(){
@@ -1052,7 +1117,7 @@ function spawnMine(){
     }
 
 }
-
+// function check and update status explosion for mine
 function updateMines(){
     if(currentLevelName!=="mineField"){
         return;
@@ -1134,10 +1199,49 @@ function startMineCountDown(){
     mineCountDownTimer = setInterval(() => {updateMines(); drawGame();},500);
 }
 
+// -------------------------------------------------------------
+// special for level 6
 
+// function define for
+function  shootPoison(){
+    if(currentLevelName!=="volcano"){
+        return;
+    }
+    const headSnake = snake[0];
+    poisonsExist.push({x: headSnake.x, y: headSnake.y,directionPoisonX:direction.x,directionPoisonY:direction.y});
+    drawGame();
+}
 
+function movePoison(){
+    if(currentLevelName!=="volcano"){
+        return;
+    }
+    for (let i=poisonsExist.length-1;i>=0;i--){
+        poison = poisonsExist[i];
+        poison.x = poison.directionPoisonX;
+        poison.y = poison.directionPoisonY;
+        if (poison.x<0||poison.y<0||poison.x>=gridSize||poisonsExist.y>=gridSize) {
+            poisonsExist.splice(i,1);
+            continue;
+        }
+        const hitObstacle = activeLevel.obstacles.some(obstacle => obstacle.x===poison.x&&obstacle.y===poison.y);
+        if(hitObstacle){
+            poisonsExist.splice(i,1);
+            continue;
+        }
+    }
+    drawGame();
+}
 
-
+function drawPoison(){
+    if(currentLevelName!=="volcano"){
+        return;
+    }
+    activeCtx.fillStyle = activeLevel.snakePoisonColor;
+    for (const poison of poisonsExist){
+        activeCtx.fillRect(poison.x*cellSize+1,poison.y*cellSize+1,cellSize-2,cellSize-2);
+    }
+}
 
 
 
@@ -1155,6 +1259,12 @@ document.addEventListener("keydown", function(e){
     if(activeLevel===null|| activeLevel.screen.hidden) {
         return;
     }
+    if(currentLevelName==="volcano"&&e.key.toLowerCase()===activeLevel.poisonKey){
+        e.preventDefault();
+        shootPoison();
+        return;
+    }
+
     let newDirection = null;
     switch (e.key.toLowerCase()) {
         case "arrowup":
@@ -1225,6 +1335,10 @@ level5Button.addEventListener("click",
     startLevel("mineField");
     }
     );
+level6Button.addEventListener("click",
+    function (){
+    startLevel("volcano");
+    });
 
 nextLevelButton.addEventListener("click",
     function(){
@@ -1236,6 +1350,8 @@ nextLevelButton.addEventListener("click",
         startLevel("cave");
     }else if (currentLevelName==="cave"){
         startLevel("mineField");
+    }else if(currentLevelName==="mineField"){
+        startLevel("volcano")
     }
     });
 retryButton.addEventListener("click",
@@ -1251,5 +1367,6 @@ caveBackToMenu.addEventListener("click",backToMenu);
 winBackToMenu.addEventListener("click", backToMenu);
 gameOverBackToMenu.addEventListener("click", backToMenu);
 levelBackToMenu.addEventListener("click", backToMenu);
-mineFieldBackToMenu.addEventListener("click",backToMenu)
+mineFieldBackToMenu.addEventListener("click",backToMenu);
+volcanoBackToMenu.addEventListener("click",backToMenu);
 

@@ -113,6 +113,7 @@ button:focus-visible{
 #Village,
 #Swarm,
 #Cave,
+#Volcano,
 #MineField,
 #Forest {
   min-height:100vh;
@@ -151,6 +152,7 @@ button:focus-visible{
   #GameCanvas,
   #SwarmCanvas,
   #CaveCanvas,
+  #VolcanoCanvas,
   #MineFieldCanvas,
   #ForestCanvas{
     display:block;
@@ -171,6 +173,7 @@ button:focus-visible{
   #swarmBackToMenu,
   #caveBackToMenu,
   #mineFieldBackToMenu,
+  #volcanoBackToMenu,
   #forestBackToMenu{
     padding: 12px 16px;
     color:$color-text;
@@ -183,7 +186,8 @@ button:focus-visible{
   #backToMenu:active,
   #caveBackToMenu:active,
   #swarmBackToMenu:active,
-  #caveBackToMenu:active,
+  #mineFieldBackToMenu:active,
+  #volcanoBackToMenu:active,
   #forestBackToMenu:active{
     background: #267d26;
   }
