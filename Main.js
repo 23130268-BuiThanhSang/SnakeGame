@@ -1218,8 +1218,8 @@ function movePoison(){
     }
     for (let i=poisonsExist.length-1;i>=0;i--){
         poison = poisonsExist[i];
-        poison.x = poison.directionPoisonX;
-        poison.y = poison.directionPoisonY;
+        poison.x += poison.directionPoisonX;
+        poison.y += poison.directionPoisonY;
         if (poison.x<0||poison.y<0||poison.x>=gridSize||poisonsExist.y>=gridSize) {
             poisonsExist.splice(i,1);
             continue;
