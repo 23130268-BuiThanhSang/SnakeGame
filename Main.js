@@ -101,6 +101,14 @@ const volcanoBackToMenu = document.getElementById("volcanoBackToMenu");
 let poisonsExist =[];
 let snakePoisonLoop = null;
 
+// declare for dragon
+let dragon  = null;
+let dragonHP=0;
+let dragonLoop = null;
+let dragonFireLoop=null;
+let dragonFireExist =[];
+let dragonFireTimeLeft =0;
+
 
 
 
@@ -307,9 +315,11 @@ const levels ={
             { x: 17, y: 13 , visible: true, phaseOffset:2},
             { x: 9, y: 17 , visible: true, phaseOffset:3},
             { x: 9, y: 18 , visible: true, phaseOffset:3},
+
             { x: 9, y: 19 , visible: true, phaseOffset:3},
             { x: 19, y: 2 , visible: true, phaseOffset:1},
             { x: 20, y: 2 , visible: true, phaseOffset:1},
+
             { x: 21, y: 2 , visible: true, phaseOffset:2},
             { x: 25, y: 6 , visible: true, phaseOffset:2},
             { x: 24, y: 6 , visible: true, phaseOffset:2},
@@ -413,9 +423,57 @@ const levels ={
             snakePoisonDame:1,
             foodColor: "#ecd90a",
             obstaclesColor: "#493d2c",
-            obstacles:[],
+            obstacles:[{ x: 4, y: 5 },
+                { x: 4, y: 6 },
+                { x: 4, y: 7 },
+                { x: 6, y: 5 },
+                { x: 6, y: 7 },
+                { x: 12, y: 3 },
+                { x: 13, y: 3 },
+                { x: 13, y: 4 },
+                { x: 13, y: 5 },
+                { x: 13, y: 6 },
+                { x: 19, y: 9 },
+                { x: 22, y: 7 },
+                { x: 7, y: 18 },
+                { x: 7, y: 19 },
+                { x: 7, y: 20 },
+                { x: 7, y: 21 },
+                { x: 10, y: 16 },
+                { x: 11, y: 16 },
+                { x: 12, y: 16 },
+                { x: 13, y: 16 },
+                { x: 16, y: 6 },
+                { x: 16, y: 7 },
+                { x: 16, y: 8 },
+                { x: 17, y: 8 },
+                { x: 18, y: 8 },
+                { x: 23, y: 16 },
+                { x: 23, y: 17 },
+                { x: 23, y: 18 },
+                { x: 3, y: 13 },
+                { x: 4, y: 13 },
+                { x: 10, y: 22 },
+                { x: 11, y: 22 },
+                { x: 12, y: 22 },
+                { x: 13, y: 22 },
+                { x: 16, y: 22 },
+                { x: 17, y: 22 },
+                { x: 18, y: 22 },
+                { x: 18, y: 19 },
+                { x: 19, y: 19 },
+                { x: 20, y: 19 },
+                { x: 20, y: 20 },
+                { x: 20, y: 21 },
+                { x: 21, y: 19 },
+                { x: 8, y: 5 },
+                { x: 8, y: 6 },
+                { x: 8, y: 7 },
+                { x: 14, y: 4 },
+                { x: 14, y: 5 },
+                { x: 14, y: 6 }],
             dragonColor: "#510715",
-            dragonSize:4,
+            dragonSize:1,
             dragonSpeed: 150,
             dragonHP: 5,
             fireBreathColor:"#f80321",
@@ -505,6 +563,7 @@ function startLevel(levelName){
         nextDirection = { x: 1, y: 0 };
         mines=[];
         poisonsExist=[];
+    createDragon();
         if (currentLevelName === "cave"){
             levelStartTime=Date.now();
             for (const obstacle of activeLevel.obstacles){
@@ -730,6 +789,7 @@ function drawGame(){
     drawSpider();
     drawMines();
     drawPoison();
+    drawDraron();
 }
 // move for snake
 function moveSnake(){
@@ -1202,7 +1262,7 @@ function startMineCountDown(){
 // -------------------------------------------------------------
 // special for level 6
 
-// function define for
+// function define for action shoot poison of snake
 function  shootPoison(){
     if(currentLevelName!=="volcano"){
         return;
@@ -1211,7 +1271,7 @@ function  shootPoison(){
     poisonsExist.push({x: headSnake.x, y: headSnake.y,directionPoisonX:direction.x,directionPoisonY:direction.y});
     drawGame();
 }
-
+// function define for action move of poison
 function movePoison(){
     if(currentLevelName!=="volcano"){
         return;
@@ -1232,7 +1292,7 @@ function movePoison(){
     }
     drawGame();
 }
-
+// function define for action draw poison
 function drawPoison(){
     if(currentLevelName!=="volcano"){
         return;
@@ -1243,6 +1303,51 @@ function drawPoison(){
     }
 }
 
+function createDragon(){
+    const dragonSize = activeLevel.dragonSize;
+    let isSnake;
+    let isObstacle=false;
+    let isFood=false;
+    do{
+        dragon={
+            x:dragonSize+Math.floor(Math.random()*(gridSize-2*dragonSize)),
+            y:dragonSize+Math.floor(Math.random()*(gridSize-2*dragonSize))
+        };
+        // check location is snake
+        isSnake=snake.some(segment=>Math.abs(segment.x-dragon.x)<=dragonSize
+                                    &&Math.abs(segment.y-dragon.y)<=dragonSize);
+        //     check location is obstacle
+        isObstacle=activeLevel.obstacles.some(obstacle => Math.abs(obstacle.x-dragon.x)<=dragonSize
+                                    &&Math.abs(obstacle.y-dragon.y)<=dragonSize);
+        //     check is food
+        isFood=Math.abs(food.x-dragon.x)<=dragonSize&&Math.abs(food.y-dragon.y)<=dragonSize;
+
+    }while (isSnake||isObstacle||isFood)
+
+    dragonHP=activeLevel.dragonHP;
+
+
+
+}
+
+function drawDraron(){
+    if(currentLevelName!=="volcano"||dragon===null) {
+        return;
+    }
+    const size = activeLevel.dragonSize;
+    activeCtx.fillStyle = activeLevel.dragonColor;
+    for (let y=-size;y<=size;y++){
+        for (let x=-size;x<=size;x++){
+            activeCtx.fillRect((dragon.x+x)*cellSize,(dragon.y+y)*cellSize,cellSize,cellSize);
+        }
+    }
+    activeCtx.fillStyle = "skyblue";
+    activeCtx.fillRect(dragon.x*cellSize, dragon.y*cellSize, cellSize,cellSize);
+    activeCtx.fillStyle="white";
+    activeCtx.textAlign="center";
+     activeCtx.textBaseline="middle";
+    activeCtx.fillText(dragonHP,dragon.x*cellSize+cellSize/2,dragon.y*cellSize+cellSize/2);
+}
 
 
 

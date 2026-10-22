@@ -25,7 +25,7 @@ button {
 }
 
 button:focus-visible {
-  outline: 3px solid white;
+  outline: 3px solid #b3bfb8;
   outline-offset: 4px;
 }
 
@@ -69,7 +69,7 @@ button:focus-visible {
 }
 #Menu .MenuContent .GameTitle {
   margin: 0;
-  color: white;
+  color: #b3bfb8;
   font-size: 40px;
   line-height: 1.8;
   text-align: center;
@@ -91,7 +91,7 @@ button:focus-visible {
   text-transform: uppercase;
   line-height: 1.8;
   background: #043304;
-  border: 2px solid white;
+  border: 2px solid #b3bfb8;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgb(93, 166, 132);
 }
@@ -136,7 +136,7 @@ button:focus-visible {
 #MineField .GameHeader h2,
 #Forest .GameHeader h2 {
   margin: 0;
-  color: white;
+  color: #b3bfb8;
   font-size: 15px;
 }
 #Village .GameHeader .GameStates,
@@ -155,7 +155,7 @@ button:focus-visible {
 #Volcano .GameHeader .GameStates strong,
 #MineField .GameHeader .GameStates strong,
 #Forest .GameHeader .GameStates strong {
-  color: white;
+  color: #b3bfb8;
 }
 #Village #GameCanvas,
 #Village #SwarmCanvas,
@@ -253,7 +253,7 @@ button:focus-visible {
   font-size: 10px;
   line-height: 1.8;
   background: #135e13;
-  border: 2px solid white;
+  border: 2px solid #b3bfb8;
   border-radius: 10px;
 }
 #Village #backToMenu:active,
@@ -317,7 +317,7 @@ button:focus-visible {
   background: #182719;
 }
 #WinScreen .WinContent h1 {
-  color: white;
+  color: #b3bfb8;
   font-size: 32px;
   line-height: 1.8;
   margin: 0 0 30px;
@@ -336,7 +336,7 @@ button:focus-visible {
   line-height: 1.8;
   color: #f5f0d8;
   background: #182719;
-  border: 2px solid white;
+  border: 2px solid #b3bfb8;
   border-radius: 8px;
   cursor: pointer;
 }
@@ -429,7 +429,7 @@ button:focus-visible {
 }
 #SelectLevel .LevelSelectionContent .GameTitle {
   font-size: 40px;
-  color: white;
+  color: #b3bfb8;
 }
 #SelectLevel .LevelSelectionContent .LevelButtons {
   display: grid;
@@ -464,7 +464,7 @@ button:focus-visible {
   font-size: 10px;
   line-height: 1.8;
   background: #135e13;
-  border: 2px solid white;
+  border: 2px solid #b3bfb8;
   border-radius: 10px;
 }
 #SelectLevel #LevelBackToMenu:active {
