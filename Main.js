@@ -1,4 +1,4 @@
-// code author Bui thanh sang - 23130268 writing not AI and comment same as
+// Bui Thanh Sang -23130268
 // declare variable or constant here for global
 // -------- Variable LEVEL  1
 const menu =document.getElementById("Menu");
@@ -869,7 +869,14 @@ function moveSnake(){
         if(currentLevelName === "cave" && !obstacle.visible){
             return false;
         }
-         return obstacle.x === newHead.x && obstacle.y === newHead.y
+        if (obstacle.x === newHead.x && obstacle.y === newHead.y){
+            return true;
+        }
+         if (currentLevelName === "cave" && obstacle.visible){
+             return snake.some(segment => segment.x === obstacle.x && segment.y === obstacle.y);
+         }
+         return false;
+
     });
 
     if(hitObstacle){
