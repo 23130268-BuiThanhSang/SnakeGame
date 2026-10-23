@@ -100,14 +100,16 @@ const volcanoBackToMenu = document.getElementById("volcanoBackToMenu");
 // declare for skill snake
 let poisonsExist =[];
 let snakePoisonLoop = null;
+// declare for skill dragon
+let fireExist=[];
+let dragonFireLoop=null;
+let fireMoveLoop=null;
 
 // declare for dragon
 let dragon  = null;
 let dragonHP=0;
 let dragonLoop = null;
-let dragonFireLoop=null;
-let dragonFireExist =[];
-let dragonFireTimeLeft =0;
+
 
 
 
@@ -199,6 +201,7 @@ const levels ={
         knightImage: knightImg,
         foodColor: "#da0e32",
         obstaclesColor: "#6a2e14",
+        obstacleColorCore:"#4ae110",
         obstacles:[
             { x: 8, y: 5 },
             { x: 8, y: 6 },
@@ -268,6 +271,7 @@ const levels ={
         snakeSpeed: 150,
         foodColor: "#da0e32",
         obstaclesColor: "#493d2c",
+        obstacleColorCore:"#1a671f",
         obstacles:[
             {x: 8, y:5},
             {x: 8, y:6},
@@ -305,34 +309,91 @@ const levels ={
         snakeSpeed: 150,
         foodColor:"#da0e32",
         obstaclesColor: "#777b8c",
+        obstacleColorCore:"#1c2961",
         obstacles:[
-            { x: 8, y: 5 , visible: true, phaseOffset:1},
-            { x: 8, y: 6 , visible: true, phaseOffset:1},
-            { x: 8, y: 7 , visible: true, phaseOffset:1},
-            { x: 8, y: 8 , visible: true, phaseOffset:1},
-            { x: 15, y: 13 , visible: true, phaseOffset:2},
-            { x: 16, y: 13 , visible: true, phaseOffset:2},
-            { x: 17, y: 13 , visible: true, phaseOffset:2},
-            { x: 9, y: 17 , visible: true, phaseOffset:3},
-            { x: 9, y: 18 , visible: true, phaseOffset:3},
+            // { x: 8, y: 5 , visible: true, phaseOffset:1},
 
-            { x: 9, y: 19 , visible: true, phaseOffset:3},
-            { x: 19, y: 2 , visible: true, phaseOffset:1},
-            { x: 20, y: 2 , visible: true, phaseOffset:1},
+            // { x: 15, y: 13 , visible: true, phaseOffset:2},
+            // { x: 16, y: 13 , visible: true, phaseOffset:2},
+            // { x: 17, y: 13 , visible: true, phaseOffset:2},
+            // { x: 9, y: 17 , visible: true, phaseOffset:3},
+            // { x: 9, y: 18 , visible: true, phaseOffset:3},
+            //
 
-            { x: 21, y: 2 , visible: true, phaseOffset:2},
-            { x: 25, y: 6 , visible: true, phaseOffset:2},
-            { x: 24, y: 6 , visible: true, phaseOffset:2},
-            { x: 11, y: 20 , visible: true, phaseOffset:0},
-            { x: 12, y: 20 , visible: true, phaseOffset:0},
-            { x: 13, y: 20 , visible: true, phaseOffset:3},
-            { x: 14, y: 20 , visible: true, phaseOffset:3},
-            { x: 8, y: 15 , visible: true, phaseOffset:0},
+            //
+            // { x: 21, y: 2 , visible: true, phaseOffset:2},
+            // { x: 25, y: 6 , visible: true, phaseOffset:2},
+            // { x: 24, y: 6 , visible: true, phaseOffset:2},
+            // { x: 11, y: 20 , visible: true, phaseOffset:0},
+            // { x: 12, y: 20 , visible: true, phaseOffset:0},
+            // { x: 13, y: 20 , visible: true, phaseOffset:3},
+            // { x: 14, y: 20 , visible: true, phaseOffset:3},
+            // { x: 8, y: 15 , visible: true, phaseOffset:0},
+
+            { x:16, y: 8 , visible: true, phaseOffset:0},
+            { x:15, y: 8 , visible: true,phaseOffset:0},
+            { x:10, y: 4 , visible: true,phaseOffset:2},
+            { x:11, y: 4 , visible: true, phaseOffset:2},
+            // { x: 8, y: 6 , visible: true, phaseOffset:1},
+            // { x: 8, y: 7 , visible: true, phaseOffset:1},
+            // { x: 8, y: 8 , visible: true, phaseOffset:1},
+            { x:13, y: 4 , visible: true, phaseOffset:2},
+            { x:12, y:4 , visible: true, phaseOffset:2},
+            { x:12, y: 12 , visible: true,phaseOffset:3},
+
+            { x:14, y: 12 , visible: true,phaseOffset:3},
+            { x:13, y: 8 , visible: true,phaseOffset:0},
+            { x:14, y: 8 , visible: true,phaseOffset:0},
+
+            { x:12, y: 22 , visible: true,phaseOffset:1},
+
+            { x:15, y: 22 , visible: true,phaseOffset:1},
+            // { x: 9, y: 19 , visible: true, phaseOffset:3},
+            // { x: 19, y: 2 , visible: true, phaseOffset:1},
+            // { x: 20, y: 2 , visible: true, phaseOffset:1},
+
+
+
+            {x:18, y: 18 ,visible: true,phaseOffset:2},
+            {x:14, y: 11 ,visible: true,phaseOffset:3},
+            {x:13, y: 12 ,visible: true,phaseOffset:3},
+            {x:18, y: 20 ,visible: true,phaseOffset:2},
+            {x:3, y: 19 ,visible: true,phaseOffset:3},
+            {x:4, y: 19 ,visible: true,phaseOffset:3},
+
+
+            {x:5, y: 19 ,visible: true,phaseOffset:3},
+            {x:6, y: 19 ,visible: true,phaseOffset:3},
+            {x:4, y: 15 ,visible: true,phaseOffset:0},
+            {x:5, y: 15 ,visible: true,phaseOffset:0},
+
+
+            {x:14, y: 22 ,visible: true,phaseOffset:1},
+            {x:13, y: 22 ,visible: true,phaseOffset:1},
+            {x:18, y: 17 ,visible: true,phaseOffset:2},
+            {x:21, y: 4 ,visible: true,phaseOffset:1},
+
+
+
+
+            {x:21, y: 5 ,visible: true,phaseOffset:1},
+            {x:21, y: 6 ,visible: true,phaseOffset:1},
+
+
+
+
+
+            {x:21, y: 7 ,visible: true,phaseOffset:1},
+            {x:7, y: 15 ,visible: true,phaseOffset:0},
+            {x:6, y: 15 ,visible: true,phaseOffset:0},
+            {x:21, y: 8 ,visible: true,phaseOffset:1},
+            {x:21, y: 10 ,visible: true,phaseOffset:1},
+            {x:21, y: 9 ,visible: true,phaseOffset:1}
         ],
         hasSpider: true,
         spiderCount: 3,
         spiderImage: spiderImg2,
-        spiderSpeed: 600,
+        spiderSpeed: 1000,
 
     },
     mineField:{
@@ -348,7 +409,8 @@ const levels ={
         snakeBodyColor: "#6b9b4a",
         snakeSpeed: 150,
         foodColor: "#da0e32",
-        obstaclesColor: "#493d2c",
+        obstaclesColor: "#c6c2bd",
+        obstacleColorCore:"#6e470f",
         obstacles:[
             { x: 8, y: 5 },
             { x: 8, y: 6 },
@@ -414,72 +476,46 @@ const levels ={
             targetScore: 5,
             backgroundColor: "#171616",
             gridColor:"#593333",
-            snakeHeadColor: "#1d3a12",
+            snakeHeadColor: "#15cf0e",
             snakeBodyColor: "#42812a",
-            snakeSpeed: 150,
+            snakeSpeed: 145,
             poisonKey:"q",
             snakePoisonColor: "#a50dd8",
             snakePoisonSpeed: 20,
             snakePoisonDame:1,
             foodColor: "#ecd90a",
-            obstaclesColor: "#493d2c",
-            obstacles:[{ x: 4, y: 5 },
-                { x: 4, y: 6 },
-                { x: 4, y: 7 },
-                { x: 6, y: 5 },
-                { x: 6, y: 7 },
-                { x: 12, y: 3 },
-                { x: 13, y: 3 },
-                { x: 13, y: 4 },
+            obstaclesColor: "#80797a",
+            obstacleColorCore:"#8a0c23",
+            obstacles:[
+
+
+                { x: 9, y: 5 },
+                { x: 10, y: 5 },
+                { x: 11, y: 5 },
+                { x: 12, y: 5 },
                 { x: 13, y: 5 },
-                { x: 13, y: 6 },
-                { x: 19, y: 9 },
-                { x: 22, y: 7 },
-                { x: 7, y: 18 },
-                { x: 7, y: 19 },
-                { x: 7, y: 20 },
-                { x: 7, y: 21 },
-                { x: 10, y: 16 },
-                { x: 11, y: 16 },
-                { x: 12, y: 16 },
-                { x: 13, y: 16 },
-                { x: 16, y: 6 },
-                { x: 16, y: 7 },
-                { x: 16, y: 8 },
-                { x: 17, y: 8 },
-                { x: 18, y: 8 },
-                { x: 23, y: 16 },
-                { x: 23, y: 17 },
-                { x: 23, y: 18 },
-                { x: 3, y: 13 },
-                { x: 4, y: 13 },
-                { x: 10, y: 22 },
-                { x: 11, y: 22 },
-                { x: 12, y: 22 },
-                { x: 13, y: 22 },
-                { x: 16, y: 22 },
-                { x: 17, y: 22 },
-                { x: 18, y: 22 },
-                { x: 18, y: 19 },
-                { x: 19, y: 19 },
-                { x: 20, y: 19 },
-                { x: 20, y: 20 },
-                { x: 20, y: 21 },
-                { x: 21, y: 19 },
-                { x: 8, y: 5 },
-                { x: 8, y: 6 },
-                { x: 8, y: 7 },
-                { x: 14, y: 4 },
                 { x: 14, y: 5 },
-                { x: 14, y: 6 }],
+                { x: 9, y: 20 },
+                { x: 10, y: 20 },
+                { x: 11, y: 20 },
+                { x: 12, y: 20 },
+                { x: 13, y: 20 },
+                { x: 14, y: 20 },
+                // { x: 19, y: 11 },
+                // { x: 19, y: 10 },
+                // { x: 19, y: 13 },
+                // { x: 19, y: 12 }
+
+                ],
             dragonColor: "#510715",
             dragonSize:1,
-            dragonSpeed: 150,
-            dragonHP: 5,
+            dragonSpeed: 900,
+            dragonStep:1,
+            dragonHP: 10,
             fireBreathColor:"#f80321",
             fireBreathWarningColor: "#b52626",
-            fireBreathTimeCountDown: 10,
-            fireBreathSpeed: 150,
+            fireBreathTimeCountDown: 3500,
+            fireBreathSpeed: 90,
 
 
 
@@ -522,6 +558,18 @@ function startLevel(levelName){
             clearInterval(snakePoisonLoop);
             snakePoisonLoop = null;
         }
+        if (dragonLoop !== null){
+            clearInterval(dragonLoop);
+            dragonLoop = null;
+        }
+        if (dragonFireLoop !== null){
+            clearInterval(dragonFireLoop);
+            dragonFireLoop = null;
+        }
+        if (fireMoveLoop !== null){
+            clearInterval(fireMoveLoop);
+            fireMoveLoop = null;
+        }
 
 
 
@@ -563,7 +611,8 @@ function startLevel(levelName){
         nextDirection = { x: 1, y: 0 };
         mines=[];
         poisonsExist=[];
-    createDragon();
+        fireExist=[];
+
         if (currentLevelName === "cave"){
             levelStartTime=Date.now();
             for (const obstacle of activeLevel.obstacles){
@@ -580,6 +629,7 @@ function startLevel(levelName){
         if (activeLevel.hasKnight){
             spawnKnight();
         }
+        createDragon();
         createFood();
          drawGame();
         gameLoop = setInterval(moveSnake, activeLevel.snakeSpeed);
@@ -595,6 +645,9 @@ function startLevel(levelName){
         }
         if (currentLevelName === "volcano"){
             snakePoisonLoop= setInterval(movePoison,activeLevel.snakePoisonSpeed);
+            dragonLoop = setInterval(moveDragon,activeLevel.dragonSpeed);
+            dragonFireLoop = setInterval(fireBreath,activeLevel.fireBreathTimeCountDown);
+            fireMoveLoop = setInterval(moveFire,activeLevel.fireBreathSpeed);
         }
     }
 
@@ -773,7 +826,7 @@ function drawObtacles(){
         activeCtx.fillStyle = activeLevel.obstaclesColor;
         activeCtx.fillRect(obstacle.x*cellSize+1,obstacle.y*cellSize+1,cellSize-2,cellSize-2);
         // this is more design
-        activeCtx.fillStyle = "#68864a";
+        activeCtx.fillStyle = activeLevel.obstacleColorCore;
         activeCtx.fillRect(obstacle.x*cellSize+4,obstacle.y*cellSize+4,cellSize-8,cellSize-8);
 
     }
@@ -790,6 +843,7 @@ function drawGame(){
     drawMines();
     drawPoison();
     drawDraron();
+    drawFire();
 }
 // move for snake
 function moveSnake(){
@@ -835,6 +889,13 @@ function moveSnake(){
     }
     // check explosion
     if (checkMineExplosion()){
+        loseGame();
+        return;
+    }
+    const dragonSize = activeLevel.dragonSize;
+    // check dragon
+    const hitDragon =dragon!==null&&Math.abs(dragon.x-newHead.x)<=dragonSize && Math.abs(dragon.y-newHead.y)<=dragonSize;
+    if(hitDragon){
         loseGame();
         return;
     }
@@ -1277,10 +1338,10 @@ function movePoison(){
         return;
     }
     for (let i=poisonsExist.length-1;i>=0;i--){
-        poison = poisonsExist[i];
+        const poison = poisonsExist[i];
         poison.x += poison.directionPoisonX;
         poison.y += poison.directionPoisonY;
-        if (poison.x<0||poison.y<0||poison.x>=gridSize||poisonsExist.y>=gridSize) {
+        if (poison.x<0||poison.y<0||poison.x>=gridSize||poison.y>=gridSize) {
             poisonsExist.splice(i,1);
             continue;
         }
@@ -1288,6 +1349,27 @@ function movePoison(){
         if(hitObstacle){
             poisonsExist.splice(i,1);
             continue;
+        }
+        const dragonSize = activeLevel.dragonSize;
+        const hitDragon = Math.abs(dragon.x-poison.x)<=dragonSize
+                                    && Math.abs(dragon.y-poison.y)<=dragonSize;
+        if(hitDragon){
+            dragonHP--;
+            poisonsExist.splice(i,1);
+        }
+        if(dragonHP<=0){
+            if (dragonFireLoop!==null){
+                clearInterval(dragonFireLoop);
+                dragonFireLoop = null;
+            }
+            if(fireMoveLoop!==null){
+                clearInterval(fireMoveLoop);
+                fireMoveLoop = null;
+            }
+            dragon=null;
+            fireExist=[];
+            drawGame();
+            return;
         }
     }
     drawGame();
@@ -1347,6 +1429,124 @@ function drawDraron(){
     activeCtx.textAlign="center";
      activeCtx.textBaseline="middle";
     activeCtx.fillText(dragonHP,dragon.x*cellSize+cellSize/2,dragon.y*cellSize+cellSize/2);
+}
+
+function moveDragon(){
+    if (currentLevelName!=="volcano"|| dragon===null){
+        return;
+    }
+    const step =activeLevel.dragonStep;
+    const directions =  [
+        {x:0, y:-step},
+        {x:0, y:step},
+        {x:-step, y:0},
+        {x:step,y:0},
+        {x:step, y:step},
+        {x:-step,y:-step},
+        {x:step,y:-step},
+        {x:-step,y:step}
+    ];
+        let limitLoop=0;
+        let invalid=false;
+        let nextStepX=0;
+        let nextStepY=0;
+        const dragonSize= activeLevel.dragonSize;
+        do{
+            limitLoop++;
+            invalid=false;
+            const randomIndex = Math.floor(Math.random()*directions.length);
+            const choice = directions[randomIndex];
+            nextStepX = dragon.x+choice.x;
+            nextStepY = dragon.y+choice.y;
+
+             // check is wall
+            if (nextStepX-dragonSize<0||nextStepX+dragonSize>=gridSize||nextStepY-dragonSize<0||nextStepY+dragonSize>=gridSize){
+                invalid=true;
+            }
+            // check obstacles
+            const hitObstacle = activeLevel.obstacles.some(obtacle=>Math.abs(obtacle.x-nextStepX)<=dragonSize
+                                                                                 &&Math.abs(obtacle.y-nextStepY)<=dragonSize);
+            if (hitObstacle){
+                invalid=true;
+            }
+            //check food
+            const isfood = Math.abs(food.x-nextStepX)<=dragonSize
+                                    &&Math.abs(food.y-nextStepY)<=dragonSize;
+            if(isfood){
+                invalid=true;
+            }
+        }while(invalid&&limitLoop<=50)
+        if (invalid){
+        return;
+        }
+        dragon.x=nextStepX;
+        dragon.y=nextStepY;
+
+        const hitSnake = snake.some(segment=>Math.abs(segment.x-nextStepX)<=dragonSize
+                                                    &&Math.abs(segment.y-nextStepY)<=dragonSize);
+        if(hitSnake){
+            loseGame();
+            return;
+        }
+    drawGame();
+}
+
+
+function fireBreath(){
+    if (currentLevelName!=="volcano"|| dragon===null){
+        return;
+    }
+    const directions =  [
+        {x:0, y:-1},
+        {x:0, y:1},
+        {x:-1, y:0},
+        {x:1,y:0},
+        {x:1, y:1},
+        {x:-1,y:-1},
+        {x:1,y:-1},
+        {x:-1,y:1}
+    ];
+   for (let i=0;i<directions.length;i++){
+       const direction = directions[i];
+       fireExist.push({x:dragon.x,y:dragon.y, directionX:direction.x, directionY: direction.y});
+   }
+   drawGame();
+}
+
+function moveFire(){
+    if (currentLevelName!=="volcano"){
+        return;
+    }
+    for(let i=fireExist.length-1;i>=0;i--){
+        const fire = fireExist[i];
+        fire.x += fire.directionX;
+        fire.y += fire.directionY;
+        if (fire.x<0||fire.y<0||fire.x>=gridSize||fire.y>=gridSize) {
+            fireExist.splice(i,1);
+            continue;
+        }
+        const hitObstacle = activeLevel.obstacles.some(obstacle => obstacle.x===fire.x&&obstacle.y===fire.y);
+        if(hitObstacle){
+            fireExist.splice(i,1);
+            continue;
+        }
+        const hitSnake = snake.some(segment=>segment.x===fire.x&&segment.y===fire.y);
+        if(hitSnake){
+            loseGame();
+            return;
+        }
+    }
+    drawGame();
+}
+
+function  drawFire(){
+    if(currentLevelName!=="volcano"){
+        return;
+    }
+    activeCtx.fillStyle = activeLevel.fireBreathColor;
+    for (const fire of fireExist){
+        activeCtx.fillRect(fire.x*cellSize+1,fire.y*cellSize+1,cellSize-2,cellSize-2);
+    }
 }
 
 
