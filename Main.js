@@ -1184,7 +1184,7 @@ function drawSpider(){
 }
 // function move random for all spider
 function moveSpider(){
-    if (!activeLevel.hasSpider|| (currentLevelName!=="swarm"&& currentLevelName!=="cave")){
+    if (!activeLevel.hasSpider){
         return;
     }
     const directions =  [
@@ -1194,35 +1194,34 @@ function moveSpider(){
         {x:1,y:0}
     ]
     for ( const spider of spiders){
-        const choice = [...directions].sort(() => Math.random() - 0.5);
-        for (const direction of choice){
-            const nextX = spider.x+direction.x;
-            const nextY = spider.y+direction.y;
-            // check is wall
-            if (nextX<0||nextX>=gridSize||nextY<0||nextY>=gridSize){
-                continue;
-            }
-            // check obstacles
-            const hitObstacle = activeLevel.obstacles.some(
-                obstacle=>{
-                    if(currentLevelName==="cave"&&!obstacle.visible){
-                        return false;
-                    }
-                     return obstacle.x===nextX && obstacle.y===nextY}
-            );
-            if (hitObstacle){
-                continue;
-            }
-            // check is food
-            if (nextX===food.x && nextY===food.y){
-                continue;
-            }
-            // check is
-            spider.x = nextX;
-            spider.y = nextY;
-            break;
+        let randomIndex = Math.floor(Math.random()*directions.length);
+        const direction = directions[randomIndex];
+        const nextDirectionX = spider.x+direction.x;
+        const nextDirectionY = spider.y+direction.y;
+        let hitWall = false;
+        let hitFood = false;
+        if(nextDirectionX<0|| nextDirectionX>=gridSize||nextDirectionY<0|| nextDirectionY>=gridSize){
+            hitWall = true;
         }
-        // check colission snake
+        if (food.x===nextDirectionX && food.y===nextDirectionY){
+            hitFood = true;
+        }
+        const hitObtacle = activeLevel.obstacles.some(obtacle=>{
+            if(currentLevelName==="cave"&&obtacle.visible===false){
+                return false;
+            }
+            return obtacle.x===nextDirectionX&&obtacle.y===nextDirectionY;
+        });
+        if (hitWall===false&&hitFood===false&&hitObtacle===false){
+            spider.x=nextDirectionX;
+            spider.y=nextDirectionY;
+        }
+
+
+
+
+
+
         const hitSnake = snake.some(segment => segment.x === spider.x&& segment.y===spider.y);
         if (hitSnake){
             loseGame();
