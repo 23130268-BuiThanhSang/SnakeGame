@@ -649,7 +649,7 @@ function startLevel(levelName){
             obstacleLoop= setInterval(updateObstacles, 100);
         }
         if (currentLevelName === "mineField"){
-            startSpawnMine();
+            startCreateMine();
             startMineCountDown();
         }
         if (currentLevelName === "volcano"){
@@ -809,7 +809,9 @@ function drawSnake(){
 function createFood(){
     let newFood;
     let isBlocked = true;
-    while(isBlocked){
+    let limitLoop=0;
+    while(isBlocked&&limitLoop<1000){
+        limitLoop++;
         isBlocked = false;
         newFood = { x: Math.floor(Math.random()*gridSize),
                     y: Math.floor(Math.random()*gridSize),};
@@ -989,8 +991,9 @@ function moveSnake(){
 function createKnight(){
     let locationKnight;
     let isBlocked=true;
-    while(isBlocked){
-        // same create food
+    let limitLoop =0;
+    while(isBlocked&&limitLoop<1000){
+        limitLoop++;
         isBlocked = false;
         locationKnight =  {
             x: Math.floor(Math.random() * gridSize),
@@ -1110,7 +1113,9 @@ function createSpider(){
     for (let i=0; i < activeLevel.spiderCount; i++){
         let spiderLocation;
         let isBlocked=true;
-        while(isBlocked){
+        let limitLoop=0;
+        while(isBlocked&&limitLoop<1000){
+            limitLoop++;
             isBlocked = false;
             spiderLocation = {x:Math.floor(Math.random()*gridSize),
                 y:Math.floor(Math.random()*gridSize)};
@@ -1196,66 +1201,53 @@ function moveSpider(){
 
 
 
-// -----------------------------------
+// --------------------------------------
 // special for level 4
 function updateObstacles(){
     if(currentLevelName!=="cave"){
         return;
     }
     const elapedTime =(Date.now()-levelStartTime)/1000;
-    let hasChanged = false;
     for(const obstacle of activeLevel.obstacles){
-        const time =(elapedTime + obstacle.phaseOffset)%6;
-        const shouldBeVisible =time<3;
-        if(obstacle.visible!==shouldBeVisible){
-            obstacle.visible=shouldBeVisible;
-            hasChanged = true;
+        const time = elapedTime + obstacle.phaseOffset;
+        const cycleTime = time % 6;
+        if (cycleTime<3){
+            obstacle.visible=true;
+        }else{
+            obstacle.visible=false;
         }
     }
-    if (hasChanged){
         drawGame();
-    }
 }
 
 // ------------------------------------
 // special for level 5
-function spawnMine(){
+function createMines(){
     if(currentLevelName!=="mineField"){
         return;
     }
-    const activeMines = mines.filter(mine => !mine.exploding);
+    const activeMines = mines.filter(mine => mine.exploding===false);
     if(activeMines.length>=activeLevel.mineCount){
         return;
     }
     let x;
     let y;
     let validPosition=false;
-    let attempts = 0;
-    while(!validPosition && attempts<100){
+    let limitLoop = 0;
+    while(validPosition===false && limitLoop<100){
+        limitLoop++;
         x=Math.floor(Math.random()*(gridSize-2)+1);
         y=Math.floor(Math.random()*(gridSize-2)+1);
-        attempts++;
-    //     check is snake
         const isSnake = snake.some(segment => segment.x===x && segment.y===y);
-    //     check is food
         const isFood = food.x===x&&food.y===y;
-    //     check is obstacle
         const isObstacle = activeLevel.obstacles.some(obstacle=>obstacle.x===x && obstacle.y===y);
-    //     check is mine
         const isMine = mines.some(mine => mine.x===x && mine.y===y);
-
         if(isSnake===false&&isFood===false&&isObstacle===false&&isMine===false){
             validPosition=true;
         }
     }
     if (validPosition){
-        mines.push({
-            x: x,
-            y: y,
-            exploding: false,
-            timeLeft: activeLevel.mineTimeCountDown,
-            explosionTime:1
-        });
+        mines.push({x: x, y: y, exploding: false, timeLeft: activeLevel.mineTimeCountDown, explosionTime:1});
     }
 
 }
@@ -1325,12 +1317,12 @@ function drawMines(){
     }
 }
 
-function startSpawnMine(){
+function startCreateMine(){
     if(currentLevelName!=="mineField"){
         return;
     }
-    spawnMine();
-    mineSpawnTimer = setInterval(() => {spawnMine();},1000);
+    createMines();
+    mineSpawnTimer = setInterval(() => {createMines();},1000);
 }
 
 function startMineCountDown(){
