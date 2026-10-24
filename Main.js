@@ -519,7 +519,7 @@ const levels ={
             dragonSize:1,
             dragonSpeed: 900,
             dragonStep:1,
-            dragonHP: 10,
+            dragonHP: 2,
             fireBreathColor:"#f80321",
             fireBreathWarningColor: "#b52626",
             fireBreathTimeCountDown: 3500,
@@ -808,8 +808,8 @@ function drawSnake(){
 // create food
 function createFood(){
     let newFood;
-    let isBlocked;
-    do{
+    let isBlocked = true;
+    while(isBlocked){
         isBlocked = false;
         newFood = { x: Math.floor(Math.random()*gridSize),
                     y: Math.floor(Math.random()*gridSize),};
@@ -839,7 +839,7 @@ function createFood(){
             }
         }
 
-    }while(isBlocked)
+    }
     food = newFood;
 }
 // draw food
@@ -969,9 +969,9 @@ function moveSnake(){
         score++;
         activeLevel.scoreElement.textContent = score*100;
         activeLevel.mouseElement.textContent = score;
-        if(activeLevel.hasKnight&&score>=activeLevel.knightAppearScore&&knight===null){
-            spawnKnight();
-        }
+        // if(activeLevel.hasKnight&&score>=activeLevel.knightAppearScore&&knight===null){
+        //     spawnKnight();
+        // }
         if(score>=activeLevel.targetScore){
             winGame();
             return;
@@ -987,19 +987,19 @@ function moveSnake(){
 // special for level 2
 // this is function define position initial for knight
 function createKnight(){
-    let position;
-    let isBlocked;
-    do{
+    let locationKnight;
+    let isBlocked=true;
+    while(isBlocked){
         // same create food
         isBlocked = false;
-        position =  {
+        locationKnight =  {
             x: Math.floor(Math.random() * gridSize),
             y: Math.floor(Math.random() * gridSize)
         };
         for (const segment of snake) {
             if (
-                segment.x === position.x &&
-                segment.y === position.y
+                segment.x === locationKnight.x &&
+                segment.y === locationKnight.y
             ) {
                 isBlocked = true;
                 break;
@@ -1008,97 +1008,59 @@ function createKnight(){
         if (!isBlocked) {
             for (const obstacle of activeLevel.obstacles) {
                 if (
-                    obstacle.x === position.x &&
-                    obstacle.y === position.y
+                    obstacle.x === locationKnight.x &&
+                    obstacle.y === locationKnight.y
                 ) {
                     isBlocked = true;
                     break;
                 }
             }
         }
-    }while(isBlocked)
-    return position;
-}
-// function base on BFS find the way the most
-function findKnightNextStep(){
-    if(knight===null || snake.length===0){
-        return null;
     }
-    const target = snake[0];
-
-    const startKey = `${knight.x},${knight.y}`;
-    const targetKey = `${target.x},${target.y}`;
-    const queue = [knight];
-    const visited = new Set([startKey]);
-    const parent ={};
-    parent[startKey]=null;
+    return locationKnight;
+}
+//
+function findKnightNextStep(){
     const directions =[
         {x:0, y:-1},
         {x:0, y:1},
         {x:-1,y:0},
         {x:1,y:0},
     ];
-
-
-
-    while(queue.length>0){
-        const current = queue.shift();
-        const currentKey = `${current.x},${current.y}`;
-        if(currentKey===targetKey){
-            break;
+    const target = snake[0];
+    let stepKnight=[];
+    for (let i=0; i<directions.length; i++){
+        const direction = directions[i];
+        let nextStepKnightX = knight.x+direction.x;
+        let nextStepKnightY = knight.y+direction.y;
+        let distanceTarget = Math.abs(target.x-nextStepKnightX)+Math.abs(target.y-nextStepKnightY);
+        stepKnight.push({nextStepKnightX,nextStepKnightY,distanceTarget});
+    }
+    let mostDistance=10000000;
+    let locationMostDistance=0;
+    for (let i=0; i<stepKnight.length; i++){
+        nextStep = stepKnight[i];
+        if (nextStep.nextStepKnightX<0||nextStep.nextStepKnightX>=gridSize||nextStep.nextStepKnightY<0||nextStep.nextStepKnightY>=gridSize){
+            continue;
         }
-        for(const direction of directions){
-            const next = {
-                x: current.x+direction.x,
-                y: current.y+direction.y,
-            };
-
-            const nextKey = `${next.x},${next.y}`;
-            if(next.x<0||next.x>=gridSize||next.y<0||next.y>=gridSize){
-                continue;
-            }
-
-            if (visited.has(nextKey)) {
-                continue;
-            }
-            const hitObstacle = activeLevel.obstacles.some(obstacle =>obstacle.x === next.x&&obstacle.y===next.y);
-            if(hitObstacle){
-                continue;
-            }
-
-            const hitSnakeBody = snake.some((segment, index)=>index>0 && segment.x === next.x && segment.y === next.y);
-            if(hitSnakeBody){
-                continue;
-            }
-            visited.add(nextKey);
-            parent[nextKey] = currentKey;
-            queue.push(next);
+        const hitObtacle = activeLevel.obstacles.some(obstacle =>nextStep.nextStepKnightX===obstacle.x&&nextStep.nextStepKnightY===obstacle.y);
+        if (hitObtacle){
+            continue;
+        }
+        const hitSnake = snake.some(segment=>segment.x===nextStep.nextStepKnightX&&segment.y===nextStep.nextStepKnightY);
+        if (hitSnake){
+            loseGame();
+            return;
+        }
+        if (nextStep.distanceTarget<=mostDistance){
+            mostDistance = nextStep.distanceTarget;
+            locationMostDistance = i;
         }
     }
-    if(!visited.has(targetKey)){
-        return null;
-    }
-
-
-
-
-
-    let currentKey = targetKey;
-    while(parent[currentKey] !== startKey){
-        currentKey = parent[currentKey];
-        if (currentKey === null || currentKey === undefined) {
-            return null;
-        }
-    }
-
-
-
-    const coordinates = currentKey.split(',');
-    return{
-        x:Number(coordinates[0]),
-        y:Number(coordinates[1]),
-    };
+    let newPositionKnight = {x: stepKnight[locationMostDistance].nextStepKnightX, y:stepKnight[locationMostDistance].nextStepKnightY};
+    return{x:newPositionKnight.x, y:newPositionKnight.y};
 }
+
 // function move the knight
 function moveKnight(){
     if(knight===null || activeLevel===null||currentLevelName !=="forest"){
@@ -1146,28 +1108,26 @@ function spawnKnight(){
 function createSpider(){
     spiders = [];
     for (let i=0; i < activeLevel.spiderCount; i++){
-        let position;
-        let isBlocked;
-        do{
+        let spiderLocation;
+        let isBlocked=true;
+        while(isBlocked){
             isBlocked = false;
-            position = {x:Math.floor(Math.random()*gridSize),
+            spiderLocation = {x:Math.floor(Math.random()*gridSize),
                 y:Math.floor(Math.random()*gridSize)};
-            // check is snake
             for (const segment of snake){
-                if(position.x===segment.x && position.y===segment.y){
+                if(spiderLocation.x===segment.x && spiderLocation.y===segment.y){
                     isBlocked = true;
                     break;
                 }
             }
-            // check is obtacle
             for (const obstacle of activeLevel.obstacles){
-                if (position.x===obstacle.x && position.y===obstacle.y){
+                if (spiderLocation.x===obstacle.x && spiderLocation.y===obstacle.y){
                     isBlocked = true;
                     break;
                 }
             }
-        }while(isBlocked)
-        spiders.push(position);
+        }
+        spiders.push(spiderLocation);
     }
 }
 // function define for draw spider
