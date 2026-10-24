@@ -3,7 +3,9 @@
 // -------- Variable LEVEL  1
 const menu =document.getElementById("Menu");
 const village = document.getElementById("Village");
-const playButton = document.getElementById("playButton");
+
+
+
 // declare for choose level(chapters)
 const selectChapterButton = document.getElementById("selectChapterButton");
 const selectLevel = document.getElementById("SelectLevel");
@@ -26,6 +28,11 @@ const nextLevelButton = document.getElementById("nextLevel");
 const winMessage = document.getElementById("WinMessage");
 const winBackToMenu = document.getElementById("winBackToMenu");
 const finalScoreElement = document.getElementById("FinalScore");
+// declare fire guide game
+const guideScreen = document.getElementById("GuideScreen");
+const startGame = document.getElementById("startGame");
+const playButton = document.getElementById("playButton");
+const guideMessage = document.getElementById("GuideMessage");
 // declare for lose game
 const gameOverScreen = document.getElementById("GameOverScreen");
 const gameOverScore = document.getElementById("GameOverScore");
@@ -147,6 +154,7 @@ volcanoCanvas.height = gridSize*cellSize;
 // current game state
 let gameLoop = null;
 let currentLevelName = null;
+let selectLevelName = null;
 let activeLevel = null;
 let activeCtx = null;
 
@@ -188,7 +196,7 @@ const levels ={
         screen: forest,
         canvas: forestCanvas,
         scoreElement: forestScore,
-        targetScore: 7,
+        targetScore: 5,
         mouseElement: forestMouseEaten,
         backgroundColor: "#527d3a",
         gridColor: "#3c642d",
@@ -262,7 +270,7 @@ const levels ={
         screen: swarm,
         canvas: swarmCanvas,
         scoreElement: swarmScore,
-        targetScore: 7,
+        targetScore: 5,
         mouseElement: swarmMouseEaten,
         backgroundColor: "#385448",
         gridColor: "#30483b",
@@ -300,7 +308,7 @@ const levels ={
         screen: cave,
         canvas: caveCanvas,
         scoreElement: caveScore,
-        targetScore: 7,
+        targetScore: 5,
         mouseElement: caveMouseEaten,
         backgroundColor: "#292d3e",
         gridColor: "#3b4054",
@@ -401,7 +409,7 @@ const levels ={
         screen: mineField,
         canvas: mineFieldCanvas,
         scoreElement: mineFieldScore,
-        targetScore: 9,
+        targetScore: 6,
         mouseElement:mineFieldMouseEaten,
         backgroundColor: "#33352e",
         gridColor: "#4a4d40",
@@ -587,6 +595,7 @@ function startLevel(levelName){
 
         selectLevel.hidden=true;
         menu.hidden = true;
+        guideScreen.hidden=true;
         winScreen.hidden = true;
         gameOverScreen.hidden = true;
         forest.hidden = true;
@@ -650,6 +659,52 @@ function startLevel(levelName){
             fireMoveLoop = setInterval(moveFire,activeLevel.fireBreathSpeed);
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+function guideLevelGame(levelName){
+    menu.hidden=true;
+    selectLevel.hidden=true;
+    winScreen.hidden = true;
+    gameOverScreen.hidden = true;
+    forest.hidden = true;
+    village.hidden = true;
+    swarm.hidden = true;
+    cave.hidden = true;
+    mineField.hidden = true;
+    volcano.hidden = true;
+    guideScreen.hidden=false;
+    selectLevelName=levelName;
+    if(selectLevelName === "village"){
+        guideMessage.textContent = "Chào mừng bạn đến Level 1 Village. Màn  này cần bạn đạt đủ 600 điểm để hoàn thành!";
+
+    }else if(selectLevelName === "forest"){
+        guideMessage.textContent = "Chào mừng bạn đến Level 2 Forest. Màn  này sẽ xuất hiện 1 kỵ sĩ sẽ liên tục  đuổi theo bạn để tiêu diệt bạn. Nhiệm vụ của bạn là không để kỵ sĩ bắt được (kỹ sĩ sẽ liên tục đuổi theo khi kỵ sĩ chạm vào đầu rắn sẽ chết) và đạt đủ 500 điểm để hoàn thành";
+
+    }else if(selectLevelName === "swarm"){
+        guideMessage.textContent = "Chào mừng bạn đến Level 3 Swarm. Màn này sẽ xuất hiện nhện độc và sẽ di chuyển 1 cách ngẫu nhiên. Nhiệm vụ của bạn là né tránh nhện( Nhện chạm vào bất kỳ bộ phận nào của rắn thì rắn sẽ chết) và đạt đủ 500 điểm để hoàn thành  ";
+
+    }else if (selectLevelName === "cave"){
+        guideMessage.textContent = "Chào mừng bạn đến Level 4 Cave. Màn này sẽ xuất  nhện độc và các bức tường đá sẽ liên tục biến mất và xuất hiện theo chu kỳ. Nhiệm vụ của bạn là né tránh nhện độc và ghi nhớ chù kỳ xuất hiện và ẩn đi của các bức tường để né tránh và đạt đủ 500 điểm để hoàn thành";
+
+    }else if(selectLevelName === "mineField"){
+        guideMessage.textContent = "Chào mừng bạn đến Level 5 Mine Field. Màn này sẽ xuất hiện mìn và trên mìn sẽ có hiện thời gian đếm ngược tới thời gian nổ của mìn.Nhiệm vụ của bạn là chú ý quan sát thời gian đến ngược của mìn nếu chưa về 0 thì mìn an toàn nếu mìn về 0 thì sẽ phát nổ bạn cần tránh khỏi phạm vi vụ nổ, nếu không rắn sẽ chết. Bạn cần đạt 600 điểm để hoàn thành";
+
+    }else if(selectLevelName === "volcano"){
+        guideMessage.textContent = "Chào mừng đến level 6 Volcano. Màn này sẽ xuất hiện rồng và trên người nó có hiện số điểm sinh lực, rồng có thể phun lửa ra 8 hướng sau 1 khoản thời gian(chạm phải tường sẽ bị chặn lại), rồng sẽ chết khi sinh lực về 0. Màn này rắn của bạn có khả năng phun độc khi bạn nhấn Q để gây sát thương lên rồng. Nhiệm vụ của bạn là sống sót trước sự công kích của rồng(né tránh sau tường tránh lửa của rồng hoặc phun độctiêu diệt rồng) và đạt 500 điểm để hoàn thành";
+
+    }
+}
 
 // function define win game
 function winGame(){
@@ -1610,9 +1665,15 @@ document.addEventListener("keydown", function(e){
 
 
 // add listener for button
+startGame.addEventListener("click", function(){
+    guideLevelGame("village");
+});
 playButton.addEventListener("click",
     function(){
-        startLevel("village")
+        if(selectLevelName===null){
+            return;
+        }
+        startLevel(selectLevelName)
     });
 selectChapterButton.addEventListener("click",
     function (){
@@ -1622,48 +1683,54 @@ selectChapterButton.addEventListener("click",
     );
 level1Button.addEventListener("click",
     function (){
-    startLevel("village");
+    guideLevelGame("village");
+    // startLevel(selectLevelName);
     }
     );
 level2Button.addEventListener("click",
     function (){
-        startLevel("forest");
+    guideLevelGame("forest");
+        // startLevel(selectLevelName);
     }
 );
 
 level3Button.addEventListener("click",
     function (){
-        startLevel("swarm");
+    guideLevelGame("swarm")
+        // startLevel(selectLevelName);
     }
 );
 
 level4Button.addEventListener("click",
     function (){
-        startLevel("cave");
+    guideLevelGame("cave")
+        // startLevel(selectLevelName);
     }
 );
 level5Button.addEventListener("click",
     function (){
-    startLevel("mineField");
+    guideLevelGame("mineField")
+    // startLevel(selectLevelName);
     }
     );
 level6Button.addEventListener("click",
     function (){
-    startLevel("volcano");
+    guideLevelGame("volcano")
+    // startLevel(selectLevelName);
     });
 
 nextLevelButton.addEventListener("click",
     function(){
     if (currentLevelName==="village"){
-        startLevel("forest")
+        guideLevelGame("forest");
     }else if(currentLevelName==="forest"){
-        startLevel("swarm");
+        guideLevelGame("swarm");
     }else if(currentLevelName==="swarm"){
-        startLevel("cave");
+        guideLevelGame("cave");
     }else if (currentLevelName==="cave"){
-        startLevel("mineField");
+        guideLevelGame("mineField");
     }else if(currentLevelName==="mineField"){
-        startLevel("volcano")
+        guideLevelGame("volcano");
     }
     });
 retryButton.addEventListener("click",

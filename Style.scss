@@ -193,7 +193,8 @@ button:focus-visible{
   }
 }
 // this is css for screen win level
-#WinScreen{
+#WinScreen,
+#GuideScreen {
   position: fixed;
   top:0;
   left:0;
@@ -204,7 +205,8 @@ button:focus-visible{
   justify-content: center;
   align-items: center;
   z-index: 100;
-  .WinContent{
+  .WinContent,
+  .GuideContent{
     width: 600px;
     padding: 40px;
     text-align: center;
@@ -244,6 +246,10 @@ button:focus-visible{
       background: #6dc39b;
     }
   }
+}
+#GuideMessage{
+  font-family: Arial, sans-serif;
+  font-size: 20px;
 }
 .WinContent button:hover{
   background: #2f5d1e;
