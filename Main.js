@@ -1,12 +1,20 @@
-// Bui Thanh Sang -23130268
-// declare variable or constant here for global
-// -------- Variable LEVEL  1
+/**
+ * author: Bui Thanh Sang -23130268
+ * @type {HTMLElement}
+ */
+
+/**
+ * this is declare variable level 1
+ * @type {HTMLElement}
+ */
 const menu =document.getElementById("Menu");
 const village = document.getElementById("Village");
 
 
-
-// declare for choose level(chapters)
+/**
+ * declare for choose level(chapters)
+ * @type {HTMLElement}
+ */
 const selectChapterButton = document.getElementById("selectChapterButton");
 const selectLevel = document.getElementById("SelectLevel");
 const level1Button = document.getElementById("Level1Button");
@@ -16,24 +24,37 @@ const level4Button = document.getElementById("Level4Button");
 const level5Button = document.getElementById("Level5Button");
 const level6Button = document.getElementById("Level6Button");
 const levelBackToMenu = document.getElementById("LevelBackToMenu");
-///
+
+
+
+
+
 const backToMenuButton = document.getElementById("backToMenu");
 const canvas = document.getElementById("GameCanvas");
  const ctx = canvas.getContext("2d");
 const scoreElement = document.getElementById("Score");
 const mouseEatenElement = document.getElementById("mouseEaten");
-// declare for win game screen
+/**
+ * declare for variable win game screen
+ * @type {HTMLElement}
+ */
 const winScreen = document.getElementById("WinScreen");
 const nextLevelButton = document.getElementById("nextLevel");
 const winMessage = document.getElementById("WinMessage");
 const winBackToMenu = document.getElementById("winBackToMenu");
 const finalScoreElement = document.getElementById("FinalScore");
-// declare fire guide game
+/**
+ * declare for variable  guide game  screen
+ * @type {HTMLElement}
+ */
 const guideScreen = document.getElementById("GuideScreen");
 const startGame = document.getElementById("startGame");
 const playButton = document.getElementById("playButton");
 const guideMessage = document.getElementById("GuideMessage");
-// declare for lose game
+/**
+ * declare for variable lose game
+ * @type {HTMLElement}
+ */
 const gameOverScreen = document.getElementById("GameOverScreen");
 const gameOverScore = document.getElementById("GameOverScore");
 const retryButton = document.getElementById("retryButton");
@@ -42,7 +63,10 @@ const gameOverBackToMenu = document.getElementById("gameOverBackToMenu");
 // mouseImage.src = "Assets/Img/download.png";
 
 
-// --------------------- Variable LEVEL 2
+/**
+ * this is variable for level 2
+ * @type {HTMLElement}
+ */
 const forest = document.getElementById("Forest");
 const forestScore = document.getElementById("ForestScore");
 const forestMouseEaten = document.getElementById("ForestMouseEaten");
@@ -50,40 +74,58 @@ const forestCanvas = document.getElementById("ForestCanvas");
 const forestBackToMenu = document.getElementById("forestBackToMenu");
 const ctx2 = forestCanvas.getContext("2d");
 
-// declare for knightImg and initial knight
+/**
+ * this is declare for variable Knight Image and create initial knight
+ * @type {HTMLImageElement}
+ */
 const knightImg = new Image();
 knightImg.src = "Assets/Img/knight.png";
 let knight = null;
 let knightLoop = null;
 
-//-----------------------variable LEVEL 3
+/**
+ * this is declare variable for level 3
+ * @type {HTMLElement}
+ */
 const swarm = document.getElementById("Swarm");
 const swarmScore = document.getElementById("SwarmScore");
 const swarmMouseEaten = document.getElementById("SwarmMouseEaten");
 const swarmCanvas = document.getElementById("SwarmCanvas");
 const swarmBackToMenu = document.getElementById("swarmBackToMenu");
 
-// declare for spider
+/**
+ * this is declare for spider
+ * @type {HTMLImageElement}
+ */
 const spiderImg = new Image();
 spiderImg.src = "Assets/Img/spider.png";
 let spiders =[];
 let spiderLoop = null;
 
-// -------------------------variable LEVEL 4
+/**
+ * this is decalre for variable level 4
+ * @type {HTMLElement}
+ */
 const cave = document.getElementById("Cave");
 const caveScore = document.getElementById("CaveScore");
 const caveMouseEaten = document.getElementById("CaveMouseEaten");
 const caveCanvas = document.getElementById("CaveCanvas");
 const caveBackToMenu = document.getElementById("caveBackToMenu");
 
-// declare for loop obstacle
+/**
+ * this is declare for obstacle loop and spider image specialize for level 4
+ * @type {null}
+ */
 let obstacleLoop = null;
 let levelStartTime =0;
 const spiderImg2 = new Image();
 spiderImg2.src = "Assets/Img/spider2.png";
 
 
-// ---------------------------variable LEVEL 5
+/**
+ * this is declare for variable level 5
+ * @type {HTMLElement}
+ */
 const mineField = document.getElementById("MineField");
 const mineFieldScore = document.getElementById("MineFieldScore");
 const mineFieldMouseEaten = document.getElementById("MineFieldMouseEaten");
@@ -91,67 +133,94 @@ const mineFieldCanvas = document.getElementById("MineFieldCanvas");
 const mineFieldBackToMenu = document.getElementById("mineFieldBackToMenu");
 
 
-// declare for mine
+/**
+ * this is declare for initial mines and timer for mines
+ * @type {*[]}
+ */
 let mines =[];
 let mineSpawnTimer = null;
 let mineCountDownTimer = null;
 
 
-// -------------------------variable LEVEL 6
+/**
+ * this is declare for variable level 6
+ * @type {HTMLElement}
+ */
 const volcano = document.getElementById("Volcano");
 const volcanoScore = document.getElementById("VolcanoScore");
 const volcanoMouseEaten = document.getElementById("VolcanoMouseEaten");
 const volcanoCanvas = document.getElementById("VolcanoCanvas");
 const volcanoBackToMenu = document.getElementById("volcanoBackToMenu");
 
-// declare for skill snake
+/**
+ * this is decalre for poison skill of snake
+ * @type {*[]}
+ */
 let poisonsExist =[];
 let snakePoisonLoop = null;
-// declare for skill dragon
+/**
+ * this is declare for firebreath skill of dragon
+ * @type {*[]}
+ */
 let fireExist=[];
 let dragonFireLoop=null;
 let fireMoveLoop=null;
 
-// declare for dragon
+/**
+ * this is declare for dragon and dragon loop
+ * @type {null}
+ */
 let dragon  = null;
 let dragonHP=0;
 let dragonLoop = null;
 
 
-
-
-
-
-
-
-
-
-
-
-// game config for global
-// size for each map define here
-// size for map for all level
+/**
+ * this is game config width and height and multi
+ * @type {number}
+ */
 const gridSize = 25;
 const cellSize = 20;
-// canvas for level 1
+/**
+ * this is canvas for level 1
+ * @type {number}
+ */
 canvas.width = gridSize*cellSize;
 canvas.height = gridSize*cellSize;
-// canvas for level 2
+/**'
+ * this is canvas for level 2
+ * @type {number}
+ */
 forestCanvas.width = gridSize*cellSize;
 forestCanvas.height = gridSize*cellSize;
-// canvas for level 3
+/**
+ * this is canvas for level 3
+ * @type {number}
+ */
 swarmCanvas.width = gridSize*cellSize;
 swarmCanvas.height = gridSize*cellSize;
-// canvas for level 4
+/**'
+ * this is canvas for level 4
+ * @type {number}
+ */
 caveCanvas.width = gridSize*cellSize;
 caveCanvas.height = gridSize*cellSize;
-// canvas for level 5
+/**
+ * this is canvas for level 5
+ * @type {number}
+ */
 mineFieldCanvas.width = gridSize*cellSize;
 mineFieldCanvas.height = gridSize*cellSize;
-// canvas for level 6
+/**
+ * this is canvas for level 6
+ * @type {number}
+ */
 volcanoCanvas.width = gridSize*cellSize;
 volcanoCanvas.height = gridSize*cellSize;
-// current game state
+/**
+ * this is current game state
+ * @type {null}
+ */
 let gameLoop = null;
 let currentLevelName = null;
 let selectLevelName = null;
@@ -159,21 +228,37 @@ let activeLevel = null;
 let activeCtx = null;
 
 
-
-
-
-// define Snake at here
+/**
+ * this is define for initial snake
+ * @type {*[]}
+ */
 let snake =[];
-// direction current
+/**
+ * this is direction initial
+ * @type {{x: number, y: number}}
+ */
 let direction ={x:1,y:0};
-// next direction . default direction current
+/**
+ * this is next direction initial
+ * @type {{x: number, y: number}}
+ */
 let nextDirection ={x:1,y:0};
-// declare food for game
+/**
+ * this is decalre for initial food
+ * @type {{x: number, y: number}}
+ */
 let food = {x:15,y:10};
-// declare score
+/**
+ * this is decalre for score
+ * @type {number}
+ */
 let score = 0;
 
-// ----LEVEL Config
+/**
+ * this is special. this is config for each level and be used for start level to determine for level
+ * use array save object config for level
+ * @type {{village: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacles: []}, forest: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, hasKnight: boolean, knightSpeed: number, knightAppearScore: number, knightImage: HTMLImageElement, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles}, swarm: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles, hasSpider: boolean, spiderCount: number, spiderImage: HTMLImageElement, spiderSpeed: number}, cave: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles, hasSpider: boolean, spiderCount: number, spiderImage: HTMLImageElement, spiderSpeed: number}, mineField: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles, mineCount: number, mineColor: string, mineTimeCountDown: number}, volcano: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, mouseElement: HTMLElement, targetScore: number, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, poisonKey: string, snakePoisonColor: string, snakePoisonSpeed: number, snakePoisonDame: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles, dragonColor: string, dragonSize: number, dragonSpeed: number, dragonStep: number, dragonHP: number, fireBreathColor: string, fireBreathWarningColor: string, fireBreathTimeCountDown: number, fireBreathSpeed: number}}}
+ */
 const levels ={
     village:{
         name: "Village",
@@ -519,7 +604,7 @@ const levels ={
             dragonSize:1,
             dragonSpeed: 900,
             dragonStep:1,
-            dragonHP: 2,
+            dragonHP: 10,
             fireBreathColor:"#f80321",
             fireBreathWarningColor: "#b52626",
             fireBreathTimeCountDown: 3500,
@@ -530,11 +615,13 @@ const levels ={
         }
 
 }
-// ---------------------------------------------------------------------------------------------
-// core game and menu
 
-// funtion tranform level or menu in here
-// function define for start level
+/**
+ * this is function start game use for multi level. start level create loop for game and create initial value
+ * input: levelName
+ * output: start level have levelName
+ * @param levelName
+ */
 function startLevel(levelName){
         if (gameLoop !== null){
             clearInterval(gameLoop);
@@ -544,12 +631,12 @@ function startLevel(levelName){
             clearInterval(knightLoop);
             knightLoop = null;
         }
-        knight = null;
+
         if (spiderLoop !== null) {
             clearInterval(spiderLoop);
             spiderLoop = null;
         }
-        spiders= [];
+
         if(obstacleLoop !== null){
             clearInterval(obstacleLoop);
             obstacleLoop = null;
@@ -578,6 +665,9 @@ function startLevel(levelName){
             clearInterval(fireMoveLoop);
             fireMoveLoop = null;
         }
+
+
+
 
 
 
@@ -618,6 +708,8 @@ function startLevel(levelName){
         ]
         direction = { x: 1, y: 0 };
         nextDirection = { x: 1, y: 0 };
+        knight = null;
+        spiders= [];
         mines=[];
         poisonsExist=[];
         fireExist=[];
@@ -628,26 +720,18 @@ function startLevel(levelName){
                 obstacle.visible = true;
             }
             updateObstacles();
+            obstacleLoop= setInterval(updateObstacles, 100);
         }
-
-
-
         if(activeLevel.hasSpider){
             createSpider();
+            spiderLoop = setInterval(moveSpider, activeLevel.spiderSpeed);
         }
         if (activeLevel.hasKnight){
             spawnKnight();
         }
         createDragon();
         createFood();
-         drawGame();
         gameLoop = setInterval(moveSnake, activeLevel.snakeSpeed);
-        if (activeLevel.hasSpider) {
-            spiderLoop = setInterval(moveSpider, activeLevel.spiderSpeed);
-        }
-        if(currentLevelName === "cave"){
-            obstacleLoop= setInterval(updateObstacles, 100);
-        }
         if (currentLevelName === "mineField"){
             startCreateMine();
             startMineCountDown();
@@ -658,20 +742,16 @@ function startLevel(levelName){
             dragonFireLoop = setInterval(fireBreath,activeLevel.fireBreathTimeCountDown);
             fireMoveLoop = setInterval(moveFire,activeLevel.fireBreathSpeed);
         }
+        drawGame();
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
+/**
+ * this is function guideline for player base on level name
+ * input: levelName
+ * output: guide screen
+ * @param levelName
+ */
 function guideLevelGame(levelName){
     menu.hidden=true;
     selectLevel.hidden=true;
@@ -691,6 +771,7 @@ function guideLevelGame(levelName){
     }else if(selectLevelName === "forest"){
         guideMessage.textContent = "Chào mừng bạn đến Level 2 Forest. Màn  này sẽ xuất hiện 1 kỵ sĩ sẽ liên tục  đuổi theo bạn để tiêu diệt bạn. Nhiệm vụ của bạn là không để kỵ sĩ bắt được (kỹ sĩ sẽ liên tục đuổi theo khi kỵ sĩ chạm vào đầu rắn sẽ chết) và đạt đủ 500 điểm để hoàn thành";
 
+
     }else if(selectLevelName === "swarm"){
         guideMessage.textContent = "Chào mừng bạn đến Level 3 Swarm. Màn này sẽ xuất hiện nhện độc và sẽ di chuyển 1 cách ngẫu nhiên. Nhiệm vụ của bạn là né tránh nhện( Nhện chạm vào bất kỳ bộ phận nào của rắn thì rắn sẽ chết) và đạt đủ 500 điểm để hoàn thành  ";
 
@@ -706,7 +787,9 @@ function guideLevelGame(levelName){
     }
 }
 
-// function define win game
+/**
+ * this is function win game use for player achieve score
+ */
 function winGame(){
     stopGameLoop();
     activeLevel.screen.hidden = true;
@@ -732,7 +815,10 @@ function winGame(){
         nextLevelButton.hidden = true;
     }
 }
-// function define lose game
+
+/**
+ * this is function lose game
+ */
 function loseGame(){
     stopGameLoop();
     activeLevel.screen.hidden = true;
@@ -742,7 +828,10 @@ function loseGame(){
     gameOverScore.textContent = score*100;
 
 }
-// function define stop Gameloop for global
+
+/**
+ * this is function end for all loop when creating in start level
+ */
 function stopGameLoop(){
     if (gameLoop !== null) {
         clearInterval(gameLoop);
@@ -773,7 +862,10 @@ function stopGameLoop(){
         snakePoisonLoop = null;
     }
 }
-//funtion define back to menu
+
+/**
+ * this is function back to menu for all screen
+ */
 function backToMenu(){
     stopGameLoop();
     village.hidden = true;
@@ -792,11 +884,12 @@ function backToMenu(){
 }
 
 
-// draw snake
+/**
+ * this is function draw snake
+ */
 function drawSnake(){
     for (let i = 0; i < snake.length; i++) {
         const part = snake[i];
-        // color head bold and color light
         if(i===0){
             activeCtx.fillStyle = activeLevel.snakeHeadColor;
         }else{
@@ -805,7 +898,11 @@ function drawSnake(){
         activeCtx.fillRect(part.x*cellSize+1,part.y*cellSize+1,cellSize-2,cellSize-2);
     }
 }
-// create food
+
+/**
+ * this is function create food at random location
+ * prevent stack over flow by limitloop=1000
+ */
 function createFood(){
     let newFood;
     let isBlocked = true;
@@ -844,14 +941,19 @@ function createFood(){
     }
     food = newFood;
 }
-// draw food
+
+/**
+ * this is function draw for food
+ */
 function drawFood(){
     activeCtx.fillStyle = activeLevel.foodColor;
     activeCtx.fillRect(food.x*cellSize+1,food.y*cellSize+1, cellSize -2, cellSize-2);
 //     ctx.drawImage(mouseImage,food.x * cellSize +1, food.y * cellSize+1, cellSize -2, cellSize -2);
 }
 
-// define map at here
+/**
+ * this is function draw for background
+ */
 function drawBackground(){
     activeCtx.fillStyle = activeLevel.backgroundColor;
     // ctx.fillStyle = "white";
@@ -874,7 +976,9 @@ function drawBackground(){
     }
 }
 
-// draw obstacles
+/**
+ * this is function draw obstacle
+ */
 function drawObtacles(){
     for(const obstacle of activeLevel.obstacles){
         if (currentLevelName === "cave" && !obstacle.visible){
@@ -889,7 +993,9 @@ function drawObtacles(){
     }
 }
 
-// draw game
+/**
+ * this is function draw for all component in game
+ */
 function drawGame(){
     drawBackground();
     drawObtacles();
@@ -902,7 +1008,10 @@ function drawGame(){
     drawDraron();
     drawFire();
 }
-// move for snake
+
+/**
+ * this is function move for snake and calculate when snake have food
+ */
 function moveSnake(){
     const head =snake[0];
     direction =nextDirection;
@@ -985,9 +1094,14 @@ function moveSnake(){
     drawGame();
 }
 
-// ------------------------------------------------------
-// special for level 2
-// this is function define position initial for knight
+/**
+ * this is special for level 2
+ * @returns {{x: number, y: number}}
+ */
+/**
+ * this is function create location initial knight base on create food
+ * @returns {{x: number, y: number}}
+ */
 function createKnight(){
     let locationKnight;
     let isBlocked=true;
@@ -1022,7 +1136,11 @@ function createKnight(){
     }
     return locationKnight;
 }
-//
+
+/**
+ * this is function find step valid for knight base on compare distance manhattan direction valid
+ * @returns {{x: *, y: *}}
+ */
 function findKnightNextStep(){
     const directions =[
         {x:0, y:-1},
@@ -1064,7 +1182,9 @@ function findKnightNextStep(){
     return{x:newPositionKnight.x, y:newPositionKnight.y};
 }
 
-// function move the knight
+/**
+ * this is function move knight base on step has been found in function findKnightNextStep
+ */
 function moveKnight(){
     if(knight===null || activeLevel===null||currentLevelName !=="forest"){
         return;
@@ -1081,7 +1201,10 @@ function moveKnight(){
     }
     drawGame();
 }
-// this is function draw knight base on position from createKnight
+
+/**
+ * this is function draw knight
+ */
 function drawKnight(){
     if(knight === null || !activeLevel.hasKnight){
         return;
@@ -1091,7 +1214,10 @@ function drawKnight(){
     const y = knight.y*cellSize;
     activeCtx.drawImage(imageKnight, x,y,cellSize,cellSize);
 }
-// create for knight and loop knight to move
+
+/**
+ * this is function spawn knight because i plan to achieve score when knight appear
+ */
 function spawnKnight(){
     if (knight !== null || !activeLevel.hasKnight){
         return;
@@ -1102,12 +1228,12 @@ function spawnKnight(){
 }
 
 
-
-
-
-//--------------------------------------
-// special for level 3
-// function define for create spider for game
+/**
+ * this is special for level 3
+ */
+/**
+ * this is function create spiders random in map base on create food
+ */
 function createSpider(){
     spiders = [];
     for (let i=0; i < activeLevel.spiderCount; i++){
@@ -1135,7 +1261,10 @@ function createSpider(){
         spiders.push(spiderLocation);
     }
 }
-// function define for draw spider
+
+/**
+ * this is function draw for all spider
+ */
 function drawSpider(){
     if (!activeLevel.hasSpider){
         return;
@@ -1147,7 +1276,11 @@ function drawSpider(){
         activeCtx.drawImage(imageSpider, x,y,cellSize,cellSize);
     }
 }
-// function move random for all spider
+
+/**
+ * this is function move for all spiders
+ * choose random direction in all directions. spider move when direction valid and not move when direction not valid
+ */
 function moveSpider(){
     if (!activeLevel.hasSpider){
         return;
@@ -1199,10 +1332,14 @@ function moveSpider(){
 }
 
 
+/**
+ * this is special for level 4
+ */
 
-
-// --------------------------------------
-// special for level 4
+/**
+ * this is function update status for obstacle by cycle
+ * cycle 3s show, 3s hidden: full cycle 6s
+ */
 function updateObstacles(){
     if(currentLevelName!=="cave"){
         return;
@@ -1220,8 +1357,14 @@ function updateObstacles(){
         drawGame();
 }
 
-// ------------------------------------
-// special for level 5
+/**
+ * this is special for level 5
+ */
+/**
+ * this is function create mine.
+ * check mines not explosion and count mines achieve count mine in game config
+ * create mines location valid base on create food
+ */
 function createMines(){
     if(currentLevelName!=="mineField"){
         return;
@@ -1251,7 +1394,11 @@ function createMines(){
     }
 
 }
-// function check and update status explosion for mine
+
+/**
+ * this is function update status for mines
+ * check mine is exploion and set status and minus time left
+ */
 function updateMines(){
     if(currentLevelName!=="mineField"){
         return;
@@ -1273,6 +1420,10 @@ function updateMines(){
     }
 }
 
+/**
+ * this is function check snake in exploision to lose game :)))
+ * @returns {boolean}
+ */
 function checkMineExplosion(){
     if (currentLevelName!=="mineField"){
         return;
@@ -1291,6 +1442,9 @@ function checkMineExplosion(){
     return false;
 }
 
+/**
+ * this is function draw for mines
+ */
 function drawMines(){
     if (currentLevelName!=="mineField"){
         return;
@@ -1317,6 +1471,9 @@ function drawMines(){
     }
 }
 
+/**
+ * this is function start create mine and set interval. i'm stupid when write it
+ */
 function startCreateMine(){
     if(currentLevelName!=="mineField"){
         return;
@@ -1325,6 +1482,9 @@ function startCreateMine(){
     mineSpawnTimer = setInterval(() => {createMines();},1000);
 }
 
+/**
+ * this is function count down for mine
+ */
 function startMineCountDown(){
     if (mineCountDownTimer!==null){
         clearInterval(mineCountDownTimer);
@@ -1333,10 +1493,12 @@ function startMineCountDown(){
     mineCountDownTimer = setInterval(() => {updateMines(); drawGame();},500);
 }
 
-// -------------------------------------------------------------
-// special for level 6
-
-// function define for action shoot poison of snake
+/**
+ * this is special for level 6
+ */
+/**
+ * this is function define for skill shoot of snake
+ */
 function  shootPoison(){
     if(currentLevelName!=="volcano"){
         return;
@@ -1345,7 +1507,10 @@ function  shootPoison(){
     poisonsExist.push({x: headSnake.x, y: headSnake.y,directionPoisonX:direction.x,directionPoisonY:direction.y});
     drawGame();
 }
-// function define for action move of poison
+
+/**
+ * this is function move skill poison
+ */
 function movePoison(){
     if(currentLevelName!=="volcano"){
         return;
@@ -1387,7 +1552,10 @@ function movePoison(){
     }
     drawGame();
 }
-// function define for action draw poison
+
+/**
+ * this is function draw poison
+ */
 function drawPoison(){
     if(currentLevelName!=="volcano"){
         return;
@@ -1398,26 +1566,29 @@ function drawPoison(){
     }
 }
 
+/**
+ * this is function create dragon base on create food
+ */
 function createDragon(){
     const dragonSize = activeLevel.dragonSize;
+    let isBlocked =true;
     let isSnake;
     let isObstacle=false;
     let isFood=false;
-    do{
+    let limitLoop =0;
+    while(isBlocked){
+        limitLoop++;
         dragon={
             x:dragonSize+Math.floor(Math.random()*(gridSize-2*dragonSize)),
             y:dragonSize+Math.floor(Math.random()*(gridSize-2*dragonSize))
         };
-        // check location is snake
-        isSnake=snake.some(segment=>Math.abs(segment.x-dragon.x)<=dragonSize
-                                    &&Math.abs(segment.y-dragon.y)<=dragonSize);
-        //     check location is obstacle
-        isObstacle=activeLevel.obstacles.some(obstacle => Math.abs(obstacle.x-dragon.x)<=dragonSize
-                                    &&Math.abs(obstacle.y-dragon.y)<=dragonSize);
-        //     check is food
+        isSnake=snake.some(segment=>Math.abs(segment.x-dragon.x)<=dragonSize &&Math.abs(segment.y-dragon.y)<=dragonSize);
+        isObstacle=activeLevel.obstacles.some(obstacle => Math.abs(obstacle.x-dragon.x)<=dragonSize &&Math.abs(obstacle.y-dragon.y)<=dragonSize);
         isFood=Math.abs(food.x-dragon.x)<=dragonSize&&Math.abs(food.y-dragon.y)<=dragonSize;
-
-    }while (isSnake||isObstacle||isFood)
+        if (isSnake===false&&isObstacle===false&&isFood===false){
+            isBlocked=false;
+        }
+    }
 
     dragonHP=activeLevel.dragonHP;
 
@@ -1425,6 +1596,9 @@ function createDragon(){
 
 }
 
+/**
+ * this is function draw dragon
+ */
 function drawDraron(){
     if(currentLevelName!=="volcano"||dragon===null) {
         return;
@@ -1444,6 +1618,9 @@ function drawDraron(){
     activeCtx.fillText(dragonHP,dragon.x*cellSize+cellSize/2,dragon.y*cellSize+cellSize/2);
 }
 
+/**
+ * this is function move dragon random base on move spider
+ */
 function moveDragon(){
     if (currentLevelName!=="volcano"|| dragon===null){
         return;
@@ -1459,52 +1636,35 @@ function moveDragon(){
         {x:step,y:-step},
         {x:-step,y:step}
     ];
-        let limitLoop=0;
-        let invalid=false;
-        let nextStepX=0;
-        let nextStepY=0;
-        const dragonSize= activeLevel.dragonSize;
-        do{
-            limitLoop++;
-            invalid=false;
-            const randomIndex = Math.floor(Math.random()*directions.length);
-            const choice = directions[randomIndex];
-            nextStepX = dragon.x+choice.x;
-            nextStepY = dragon.y+choice.y;
-
-             // check is wall
-            if (nextStepX-dragonSize<0||nextStepX+dragonSize>=gridSize||nextStepY-dragonSize<0||nextStepY+dragonSize>=gridSize){
-                invalid=true;
-            }
-            // check obstacles
-            const hitObstacle = activeLevel.obstacles.some(obtacle=>Math.abs(obtacle.x-nextStepX)<=dragonSize
-                                                                                 &&Math.abs(obtacle.y-nextStepY)<=dragonSize);
-            if (hitObstacle){
-                invalid=true;
-            }
-            //check food
-            const isfood = Math.abs(food.x-nextStepX)<=dragonSize
-                                    &&Math.abs(food.y-nextStepY)<=dragonSize;
-            if(isfood){
-                invalid=true;
-            }
-        }while(invalid&&limitLoop<=50)
-        if (invalid){
-        return;
+        const dragonSize = activeLevel.dragonSize;
+        const randomIndex=Math.floor(Math.random()*directions.length);
+        const direction = directions[randomIndex];
+        const nextDragonStep ={x:dragon.x+direction.x,y:dragon.y+direction.y};
+        const isObtacle = activeLevel.obstacles.some(obstacle=>Math.abs(obstacle.x-nextDragonStep.x)<=dragonSize &&Math.abs(obstacle.y-nextDragonStep.y)<=dragonSize);
+        let hitWall=false;
+        if (nextDragonStep.x-dragonSize<0||nextDragonStep.x+dragonSize>=gridSize||nextDragonStep.y-dragonSize<0||nextDragonStep.y+dragonSize>=gridSize){
+            hitWall=true;
         }
-        dragon.x=nextStepX;
-        dragon.y=nextStepY;
-
-        const hitSnake = snake.some(segment=>Math.abs(segment.x-nextStepX)<=dragonSize
-                                                    &&Math.abs(segment.y-nextStepY)<=dragonSize);
-        if(hitSnake){
-            loseGame();
-            return;
+        let hitFood=false;
+        if (nextDragonStep.x===food.x||nextDragonStep.y===food.y){
+            hitFood=true;
         }
+        if (hitWall===false&&isObtacle===false&&hitFood===false){
+            dragon.x=nextDragonStep.x;
+            dragon.y=nextDragonStep.y;
+            const hitSnake = snake.some(segment=>Math.abs(segment.x-dragon.x)<=dragonSize &&Math.abs(segment.y-dragon.y)<=dragonSize);
+            if(hitSnake){
+                loseGame();
+                return;
+            }
+        }
+
     drawGame();
 }
 
-
+/**
+ * this is function firebreath of dragon
+ */
 function fireBreath(){
     if (currentLevelName!=="volcano"|| dragon===null){
         return;
@@ -1526,8 +1686,11 @@ function fireBreath(){
    drawGame();
 }
 
+/**
+ *  this is function move fire base on move poison
+ */
 function moveFire(){
-    if (currentLevelName!=="volcano"){
+    if (currentLevelName!=="volcano"||fireExist===null){
         return;
     }
     for(let i=fireExist.length-1;i>=0;i--){
@@ -1552,6 +1715,9 @@ function moveFire(){
     drawGame();
 }
 
+/**
+ * this is function draw fire
+ */
 function  drawFire(){
     if(currentLevelName!=="volcano"){
         return;
@@ -1563,16 +1729,9 @@ function  drawFire(){
 }
 
 
-
-
-
-
-
-
-
-
-
-// add listener for key
+/**
+ * this is adlistener for event key
+ */
 document.addEventListener("keydown", function(e){
     if(activeLevel===null|| activeLevel.screen.hidden) {
         return;
@@ -1614,8 +1773,9 @@ document.addEventListener("keydown", function(e){
 });
 
 
-
-// add listener for button
+/**
+ * thi is add event for button
+ */
 startGame.addEventListener("click", function(){
     guideLevelGame("village");
 });
