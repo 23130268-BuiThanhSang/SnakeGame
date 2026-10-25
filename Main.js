@@ -1826,6 +1826,9 @@ function switchHeadSnake(){
     snake=snakeCoppy;
 }
 
+/**
+ * this is function update direction when snake in glassWorld
+ */
 function updateDirection(){
     let newDirection = null;
     const headSnake = snake[0];
