@@ -670,8 +670,23 @@ const glassWorldLevel ={
     snakeBodyColor: "#b10a37",
     snakeSpeed: 145,
     foodColor: "#da0e32",
-    obstaclesColor: "#ededed",
-    obstacles:[]
+    obstaclesColor: "#061350",
+    obstacles:[{ x: 9, y: 5 },
+        { x: 10, y: 5 },
+        { x: 11, y: 5 },
+        { x: 12, y: 5 },
+        { x: 13, y: 5 },
+        { x: 14, y: 5 },
+        { x: 9, y: 20 },
+        { x: 10, y: 20 },
+        { x: 11, y: 20 },
+        { x: 12, y: 20 },
+        { x: 13, y: 20 },
+        { x: 14, y: 20 },
+        { x: 19, y: 11 },
+        { x: 19, y: 10 },
+        { x: 19, y: 13 },
+        { x: 19, y: 12 }]
 }
 /**
  * this is array for all level
@@ -938,6 +953,7 @@ function stopGameLoop(){
         clearInterval(snakePoisonLoop);
         snakePoisonLoop = null;
     }
+
 }
 
 /**
@@ -1161,6 +1177,10 @@ function moveSnake(){
         // if(activeLevel.hasKnight&&score>=activeLevel.knightAppearScore&&knight===null){
         //     spawnKnight();
         // }
+        if(currentLevelName==="glassWorld"){
+            switchHeadSnake();
+            updateDirection();
+        }
         if(score>=activeLevel.targetScore){
             winGame();
             return;
@@ -1777,6 +1797,45 @@ function  drawFire(){
         activeCtx.fillRect(fire.x*cellSize+1,fire.y*cellSize+1,cellSize-2,cellSize-2);
     }
 }
+
+
+/**
+ * this is special for level 7
+ */
+/**
+ * this is function switch head snake
+ */
+function switchHeadSnake(){
+    const snakeCoppy = [];
+    for (let i = snake.length-1;i>=0;i--){
+        snakeCoppy.push(snake[i]);
+    }
+    snake=snakeCoppy;
+}
+
+function updateDirection(){
+    let newDirection = null;
+    const headSnake = snake[0];
+    const snakeBody = snake[1];
+    if (headSnake.x-snakeBody.x===0&&headSnake.y-snakeBody.y>0){
+        newDirection = {x:0,y:1};
+    }
+    if (headSnake.x-snakeBody.x===0&&headSnake.y-snakeBody.y<0){
+        newDirection = {x:0,y:-1};
+    }
+    if (headSnake.x-snakeBody.x>0&&headSnake.y-snakeBody.y===0){
+        newDirection = {x:1,y:0};
+    }
+    if (headSnake.x-snakeBody.x<0&&headSnake.y-snakeBody.y===0){
+        newDirection = {x:-1,y:0};
+    }
+    nextDirection = newDirection;
+}
+
+
+
+
+
 
 
 /**
