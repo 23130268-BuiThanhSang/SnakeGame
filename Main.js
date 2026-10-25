@@ -1686,7 +1686,7 @@ function createDragon(){
  * this is function draw dragon
  */
 function drawDraron(){
-    if(dragon===null) {
+    if(dragon===null|| currentLevelName!=="volcano") {
         return;
     }
     const size = activeLevel.dragonSize;
