@@ -65,7 +65,7 @@
             <button id="retryButton" type="button">
                 Try Again
             </button>
-            <button id="gameOverBackToMenu" type="button">
+            <button id="gameOverBackToMenu">
                 Back To Menu
             </button>
         </div>
@@ -83,7 +83,7 @@
         <p class="GameHint">
             Move: Arrow Key / WASD
         </p>
-        <button id="forestBackToMenu" type="button">
+        <button id="forestBackToMenu">
             Back To Menu
         </button>
     </section>
@@ -99,7 +99,7 @@
         <p class="GameHint">
             Move: Arrow Key / WASD
         </p>
-        <button id="swarmBackToMenu" type="button">
+        <button id="swarmBackToMenu">
             Back To Menu
         </button>
     </section>
@@ -115,7 +115,7 @@
         <p class="GameHint">
             Move: Arrow Key / WASD
         </p>
-        <button id="caveBackToMenu" type="button">
+        <button id="caveBackToMenu" >
             Back To Menu
         </button>
     </section>
@@ -133,7 +133,7 @@
         <p class="GameHint">
             Move: Arrow Key / WASD
         </p>
-        <button id="mineFieldBackToMenu" type="button">
+        <button id="mineFieldBackToMenu" >
             Back To Menu
         </button>
     </section>
@@ -154,7 +154,22 @@
             Back To Menu
         </button>
     </section>
-
+    <section id="GlassWorld" class="Screen" hidden>
+        <header class="GameHeader">
+            <h2>LEVEL 6: Volcano</h2>
+            <div class="GameStates">
+                <span>SCORE:<strong id="GlassWorldScore">0</strong></span>
+                <span>MOUSE:<strong id="GlassWorldMouseEaten">0</strong></span>
+            </div>
+        </header>
+        <canvas id="GlassWorldCanvas"></canvas>
+        <p class="GameHint">
+            Move: Arrow Key / WASD
+        </p>
+        <button id="glassWorldBackToMenu" >
+            Back To Menu
+        </button>
+    </section>
 
     <section id="SelectLevel" class="Screen" hidden>
         <div class="LevelSelectionContent">
@@ -166,9 +181,10 @@
                 <div id="Level4Button" class="MenuButton" >Level 4: Cave</div>
                 <div id="Level5Button" class="MenuButton" >Level 5: Mine Field</div>
                 <div id="Level6Button" class="MenuButton" >Level 6: Volcano</div>
+                <div id="Level7Button" class="MenuButton" >Level 7: Glass World</div>
             </div>
         </div>
-        <button id="LevelBackToMenu" type="button">
+        <button id="LevelBackToMenu" >
             Back To Menu
         </button>
     </section>

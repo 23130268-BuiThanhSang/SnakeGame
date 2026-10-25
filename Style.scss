@@ -114,6 +114,7 @@ button:focus-visible{
 #Swarm,
 #Cave,
 #Volcano,
+#GlassWorld,
 #MineField,
 #Forest {
   min-height:100vh;
@@ -153,6 +154,7 @@ button:focus-visible{
   #SwarmCanvas,
   #CaveCanvas,
   #VolcanoCanvas,
+  #GlassWorldCanvas,
   #MineFieldCanvas,
   #ForestCanvas{
     display:block;
@@ -172,6 +174,7 @@ button:focus-visible{
   #backToMenu,
   #swarmBackToMenu,
   #caveBackToMenu,
+  #glassWorldBackToMenu,
   #mineFieldBackToMenu,
   #volcanoBackToMenu,
   #forestBackToMenu{
@@ -184,6 +187,7 @@ button:focus-visible{
     border-radius: 10px;
   }
   #backToMenu:active,
+  #glassWorldBackToMenu:active,
   #caveBackToMenu:active,
   #swarmBackToMenu:active,
   #mineFieldBackToMenu:active,

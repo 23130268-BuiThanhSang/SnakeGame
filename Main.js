@@ -23,6 +23,7 @@ const level3Button = document.getElementById("Level3Button");
 const level4Button = document.getElementById("Level4Button");
 const level5Button = document.getElementById("Level5Button");
 const level6Button = document.getElementById("Level6Button");
+const level7Button = document.getElementById("Level7Button");
 const levelBackToMenu = document.getElementById("LevelBackToMenu");
 
 
@@ -153,6 +154,17 @@ const volcanoCanvas = document.getElementById("VolcanoCanvas");
 const volcanoBackToMenu = document.getElementById("volcanoBackToMenu");
 
 /**
+ * this is declare for variable level 7
+ *
+ */
+
+const glassWorld = document.getElementById("GlassWorld");
+const glassWorldScore = document.getElementById("GlassWorldScore");
+const glassWorldMouseEaten = document.getElementById("GlassWorldMouseEaten");
+const glassWorldCanvas = document.getElementById("GlassWorldCanvas");
+const glassWorldBackToMenu = document.getElementById("glassWorldBackToMenu");
+
+/**
  * this is decalre for poison skill of snake
  * @type {*[]}
  */
@@ -217,6 +229,11 @@ mineFieldCanvas.height = gridSize*cellSize;
  */
 volcanoCanvas.width = gridSize*cellSize;
 volcanoCanvas.height = gridSize*cellSize;
+/**
+ * thisi is canvas for level 7
+ */
+glassWorldCanvas.width = gridSize*cellSize;
+glassWorldCanvas.height = gridSize*cellSize;
 /**
  * this is current game state
  * @type {null}
@@ -639,6 +656,23 @@ const volcanolevel ={
 
 
 };
+
+const glassWorldLevel ={
+    name: "GlassWorld",
+    screen: glassWorld,
+    canvas: glassWorldCanvas,
+    scoreElement: glassWorldScore,
+    mouseElement: glassWorldMouseEaten,
+    targetScore: 6,
+    backgroundColor: "#0aecec",
+    gridColor: "#1e46ca",
+    snakeHeadColor: "#391603",
+    snakeBodyColor: "#b10a37",
+    snakeSpeed: 145,
+    foodColor: "#da0e32",
+    obstaclesColor: "#ededed",
+    obstacles:[]
+}
 /**
  * this is array for all level
  * @type {{village: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacles: *[]}, forest: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, hasKnight: boolean, knightSpeed: number, knightAppearScore: number, knightImage: HTMLImageElement, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles: [{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]}, swarm: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles: [{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},null,null,null,null,null,null,null,null,null,null], hasSpider: boolean, spiderCount: number, spiderImage: HTMLImageElement, spiderSpeed: number}, cave: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles: [{x: number, y: number, visible: boolean, phaseOffset: number},{x: number, y: number, visible: boolean, phaseOffset: number},{x: number, y: number, visible: boolean, phaseOffset: number},{x: number, y: number, visible: boolean, phaseOffset: number},{x: number, y: number, visible: boolean, phaseOffset: number},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null], hasSpider: boolean, spiderCount: number, spiderImage: HTMLImageElement, spiderSpeed: number}, mineField: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles: [{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null], mineCount: number, mineColor: string, mineTimeCountDown: number}, volcano: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, mouseElement: HTMLElement, targetScore: number, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, poisonKey: string, snakePoisonColor: string, snakePoisonSpeed: number, snakePoisonDame: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles: [{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},null,null,null,null,null,null,null], dragonColor: string, dragonSize: number, dragonSpeed: number, dragonStep: number, dragonHP: number, fireBreathColor: string, fireBreathWarningColor: string, fireBreathTimeCountDown: number, fireBreathSpeed: number}}}
@@ -649,7 +683,8 @@ const levels ={
     swarm:swarmLevel,
     cave:caveLevel,
     mineField:mineFieldLevel,
-    volcano: volcanolevel
+    volcano: volcanolevel,
+    glassWorld: glassWorldLevel
 }
 
 /**
@@ -730,6 +765,7 @@ function startLevel(levelName){
         cave.hidden = true;
         mineField.hidden = true;
         volcano.hidden = true;
+        glassWorld.hidden = true;
         activeLevel.screen.hidden = false;
 
 
@@ -820,6 +856,8 @@ function guideLevelGame(levelName){
     }else if(selectLevelName === "volcano"){
         guideMessage.textContent = "Chào mừng đến level 6 Volcano. Màn này sẽ xuất hiện rồng và trên người nó có hiện số điểm sinh lực, rồng có thể phun lửa ra 8 hướng sau 1 khoản thời gian(chạm phải tường sẽ bị chặn lại), rồng sẽ chết khi sinh lực về 0. Màn này rắn của bạn có khả năng phun độc khi bạn nhấn Q để gây sát thương lên rồng. Nhiệm vụ của bạn là sống sót trước sự công kích của rồng(né tránh sau tường tránh lửa của rồng hoặc phun độctiêu diệt rồng) và đạt 500 điểm để hoàn thành";
 
+    }else if (selectLevelName === "glassWorld"){
+        guideMessage.textContent ="Chào mừng đến level 7 Glass World. Màn này khi bạn ăn thức ăn thì rắn sẽ bị đổi đầu thành đuổi và đuôi thành đầu. Nhiệm vụ của bạn là đạt đủ điểm để hoàn thành!";
     }
 }
 
@@ -848,6 +886,9 @@ function winGame(){
         nextLevelButton.hidden = false;
     }else if(currentLevelName === "volcano"){
         winMessage.textContent = "YOU HAVE COMPLETED VOLCANO!";
+        nextLevelButton.hidden = false;
+    }else if(currentLevelName === "glassWorld"){
+        winMessage.textContent = "YOU HAVE COMPLETED GLASS WORLD!";
         nextLevelButton.hidden = true;
     }
 }
@@ -910,6 +951,7 @@ function backToMenu(){
     cave.hidden = true;
     mineField.hidden = true;
     volcano.hidden = true;
+    glassWorld.hidden = true;
     winScreen.hidden = true;
 
     gameOverScreen.hidden = true;
@@ -1578,6 +1620,9 @@ function drawPoison(){
  * this is function create dragon base on create food
  */
 function createDragon(){
+    if (currentLevelName!=="volcano"){
+        return;
+    }
     const dragonSize = activeLevel.dragonSize;
     let isBlocked =true;
     let isSnake;
@@ -1834,6 +1879,11 @@ level6Button.addEventListener("click",
     guideLevelGame("volcano")
     // startLevel(selectLevelName);
     });
+level7Button.addEventListener("click",
+    function (){
+        guideLevelGame("glassWorld")
+        // startLevel(selectLevelName);
+    });
 
 nextLevelButton.addEventListener("click",
     function(){
@@ -1847,6 +1897,8 @@ nextLevelButton.addEventListener("click",
         guideLevelGame("mineField");
     }else if(currentLevelName==="mineField"){
         guideLevelGame("volcano");
+    }else if(currentLevelName==="volcano"){
+        guideLevelGame("glassWorld");
     }
     });
 retryButton.addEventListener("click",
@@ -1864,4 +1916,5 @@ gameOverBackToMenu.addEventListener("click", backToMenu);
 levelBackToMenu.addEventListener("click", backToMenu);
 mineFieldBackToMenu.addEventListener("click",backToMenu);
 volcanoBackToMenu.addEventListener("click",backToMenu);
+glassWorldBackToMenu.addEventListener("click",backToMenu);
 
