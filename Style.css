@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Press Start 2P";
-  src: url("Assets/Fonts/Press_Start_2P/PressStart2P-Regular.ttf") format("truetype");
+  src: url("Resource/PressStart2P-Regular.ttf") format("truetype");
 }
 * {
   box-sizing: border-box;
@@ -46,7 +46,7 @@ button:focus-visible {
 #Menu .MenuBackground {
   position: absolute;
   inset: 0;
-  background-image: url("Assets/Img/BackgroundMenu.png");
+  background-image: url("Resource/BackgroundMenu.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -113,7 +113,7 @@ button:focus-visible {
   justify-content: center;
   align-items: center;
   gap: 16px;
-  background-image: url("Assets/Img/BackgroundMenu.png");
+  background-image: url("Resource/BackgroundMenu.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -440,7 +440,7 @@ button:focus-visible {
   justify-content: center;
   align-items: center;
   gap: 30px;
-  background-image: url("Assets/Img/BackgroundMenu.png");
+  background-image: url("Resource/BackgroundMenu.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

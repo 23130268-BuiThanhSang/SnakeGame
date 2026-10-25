@@ -60,7 +60,7 @@ const gameOverScore = document.getElementById("GameOverScore");
 const retryButton = document.getElementById("retryButton");
 const gameOverBackToMenu = document.getElementById("gameOverBackToMenu");
 // const mouseImage = new Image();
-// mouseImage.src = "Assets/Img/download.png";
+// mouseImage.src = "Resource/Img/download.png";
 
 
 /**
@@ -79,7 +79,7 @@ const ctx2 = forestCanvas.getContext("2d");
  * @type {HTMLImageElement}
  */
 const knightImg = new Image();
-knightImg.src = "Assets/Img/knight.png";
+knightImg.src = "Resource/knight.png";
 let knight = null;
 let knightLoop = null;
 
@@ -98,7 +98,7 @@ const swarmBackToMenu = document.getElementById("swarmBackToMenu");
  * @type {HTMLImageElement}
  */
 const spiderImg = new Image();
-spiderImg.src = "Assets/Img/spider.png";
+spiderImg.src = "Resource/spider.png";
 let spiders =[];
 let spiderLoop = null;
 
@@ -119,7 +119,7 @@ const caveBackToMenu = document.getElementById("caveBackToMenu");
 let obstacleLoop = null;
 let levelStartTime =0;
 const spiderImg2 = new Image();
-spiderImg2.src = "Assets/Img/spider2.png";
+spiderImg2.src = "Resource/spider2.png";
 
 
 /**
@@ -257,139 +257,157 @@ let score = 0;
 /**
  * this is special. this is config for each level and be used for start level to determine for level
  * use array save object config for level
- * @type {{village: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacles: []}, forest: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, hasKnight: boolean, knightSpeed: number, knightAppearScore: number, knightImage: HTMLImageElement, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles}, swarm: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles, hasSpider: boolean, spiderCount: number, spiderImage: HTMLImageElement, spiderSpeed: number}, cave: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles, hasSpider: boolean, spiderCount: number, spiderImage: HTMLImageElement, spiderSpeed: number}, mineField: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles, mineCount: number, mineColor: string, mineTimeCountDown: number}, volcano: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, mouseElement: HTMLElement, targetScore: number, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, poisonKey: string, snakePoisonColor: string, snakePoisonSpeed: number, snakePoisonDame: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles, dragonColor: string, dragonSize: number, dragonSpeed: number, dragonStep: number, dragonHP: number, fireBreathColor: string, fireBreathWarningColor: string, fireBreathTimeCountDown: number, fireBreathSpeed: number}}}
  */
-const levels ={
-    village:{
-        name: "Village",
-        screen: village,
-        canvas: canvas,
-        scoreElement: scoreElement,
-        targetScore: 6,
-        mouseElement: mouseEatenElement,
-        backgroundColor: "#c6be3e",
-        gridColor: "#6d9640",
-        snakeHeadColor: "#1d3a12",
-        snakeBodyColor: "#42812a",
-        snakeSpeed: 160,
-        foodColor: "#da0e32",
-        obstaclesColor: "",
-        obstacles:[]
-    },
-    forest:{
-        name: "Forest",
-        screen: forest,
-        canvas: forestCanvas,
-        scoreElement: forestScore,
-        targetScore: 5,
-        mouseElement: forestMouseEaten,
-        backgroundColor: "#527d3a",
-        gridColor: "#3c642d",
-        snakeHeadColor: "#716912",
-        snakeBodyColor: "#ddb348",
-        snakeSpeed: 150,
-        hasKnight: true,
-        knightSpeed: 450,
-        knightAppearScore: 0,
-        knightImage: knightImg,
-        foodColor: "#da0e32",
-        obstaclesColor: "#6a2e14",
-        obstacleColorCore:"#4ae110",
-        obstacles:[
-            { x: 8, y: 5 },
-            { x: 8, y: 6 },
-            { x: 8, y: 7 },
+/**
+ * this is config for level 1
+ * @type {{name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacles: *[]}}
+ */
+const villageLevel={
+    name: "Village",
+    screen: village,
+    canvas: canvas,
+    scoreElement: scoreElement,
+    targetScore: 6,
+    mouseElement: mouseEatenElement,
+    backgroundColor: "#c6be3e",
+    gridColor: "#6d9640",
+    snakeHeadColor: "#1d3a12",
+    snakeBodyColor: "#42812a",
+    snakeSpeed: 160,
+    foodColor: "#da0e32",
+    obstaclesColor: "",
+    obstacles:[]
+}
+/**
+ * this is config for level 2
+ * @type {{name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, hasKnight: boolean, knightSpeed: number, knightAppearScore: number, knightImage: HTMLImageElement, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles: [{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]}}
+ */
+const forestLevel={
+    name: "Forest",
+    screen: forest,
+    canvas: forestCanvas,
+    scoreElement: forestScore,
+    targetScore: 5,
+    mouseElement: forestMouseEaten,
+    backgroundColor: "#527d3a",
+    gridColor: "#3c642d",
+    snakeHeadColor: "#716912",
+    snakeBodyColor: "#ddb348",
+    snakeSpeed: 150,
+    hasKnight: true,
+    knightSpeed: 450,
+    knightAppearScore: 0,
+    knightImage: knightImg,
+    foodColor: "#da0e32",
+    obstaclesColor: "#6a2e14",
+    obstacleColorCore:"#4ae110",
+    obstacles:[
+        { x: 8, y: 5 },
+        { x: 8, y: 6 },
+        { x: 8, y: 7 },
 
-            { x: 19, y: 9 },
+        { x: 19, y: 9 },
 
-            { x: 22, y: 7 },
-            { x: 7, y: 18 },
-            { x: 7, y: 19 },
-            { x: 7, y: 20 },
-            { x: 7, y: 21 },
-            { x: 13, y: 3 },
-            { x: 14, y: 3 },
-            { x: 14, y: 4 },
-            { x: 14, y: 5 },
-            { x: 14, y: 6 },
-            { x: 18, y: 19 },
-            { x: 19, y: 19 },
-            { x: 20, y: 19 },
-            { x: 20, y: 20 },
-            { x: 20, y: 21 },
-            { x: 21, y: 19 },
-
-            { x: 4, y: 5 },
-            { x: 6, y: 5 },
-            { x: 4, y: 6 },
-            { x: 4, y: 7 },
-            { x: 6, y: 7 },
-            { x: 10, y: 16 },
-            { x: 11, y: 16 },
-            { x: 12, y: 16 },
-            { x: 13, y: 16 },
-            { x: 16, y: 6 },
-            { x: 16, y: 7 },
-            { x: 16, y: 8 },
-            { x: 17, y: 8 },
-            { x: 18, y: 8 },
-            { x: 3, y: 13 },
-            { x: 4, y: 13 },
+        { x: 22, y: 7 },
+        { x: 7, y: 18 },
+        { x: 7, y: 19 },
+        { x: 7, y: 20 },
+        { x: 7, y: 21 },
+        { x: 13, y: 3 },
+        { x: 14, y: 3 },
+        { x: 14, y: 4 },
+        { x: 14, y: 5 },
 
 
-            { x: 10, y: 22 },
-            { x: 11, y: 22 },
-            { x: 12, y: 22 },
-            { x: 13, y: 22 },
-            { x: 16, y: 22 },
-            { x: 17, y: 22 },
-            { x: 18, y: 22 },
-            { x: 23, y: 16 },
-            { x: 23, y: 17 },
-            { x: 23, y: 18 }
-        ]
+        { x: 14, y: 6 },
+        { x: 18, y: 19 },
+        { x: 19, y: 19 },
+        { x: 20, y: 19 },
+        { x: 20, y: 20 },
+        { x: 20, y: 21 },
+        { x: 21, y: 19 },
 
-    },
-    swarm:{
-        name: "Swarm",
-        screen: swarm,
-        canvas: swarmCanvas,
-        scoreElement: swarmScore,
-        targetScore: 5,
-        mouseElement: swarmMouseEaten,
-        backgroundColor: "#385448",
-        gridColor: "#30483b",
-        snakeHeadColor: "#b5d66b",
-        snakeBodyColor: "#6b9b4a",
-        snakeSpeed: 150,
-        foodColor: "#da0e32",
-        obstaclesColor: "#493d2c",
-        obstacleColorCore:"#1a671f",
-        obstacles:[
-            {x: 8, y:5},
-            {x: 8, y:6},
-            {x:8 , y:7},
-            {x:15, y:13},
-            {x:16, y:13},
-            {x:17, y:13},
-            {x:20, y:3},
-            {x:20, y:4},
-            {x:20, y:5},
-            {x:4, y:18},
-            {x:5, y:18},
-            {x:6, y:18},
-            { x: 22, y: 10 },
-            { x: 22, y: 11 },
-            { x: 22, y: 12 }
-        ],
-        hasSpider: true,
-        spiderCount: 7,
-        spiderImage: spiderImg,
-        spiderSpeed: 550
+        { x: 4, y: 5 },
+        { x: 6, y: 5 },
+        { x: 4, y: 6 },
+        { x: 4, y: 7 },
+        { x: 6, y: 7 },
 
-    },
-    cave:{
-        name: "Cave",
+
+        { x: 10, y: 16 },
+        { x: 11, y: 16 },
+        { x: 12, y: 16 },
+        { x: 13, y: 16 },
+        { x: 16, y: 6 },
+        { x: 16, y: 7 },
+        { x: 16, y: 8 },
+        { x: 17, y: 8 },
+        { x: 18, y: 8 },
+        { x: 3, y: 13 },
+        { x: 4, y: 13 },
+
+
+        { x: 10, y: 22 },
+        { x: 11, y: 22 },
+        { x: 12, y: 22 },
+        { x: 13, y: 22 },
+        { x: 16, y: 22 },
+        { x: 17, y: 22 },
+        { x: 18, y: 22 },
+        { x: 23, y: 16 },
+        { x: 23, y: 17 },
+        { x: 23, y: 18 }
+    ]
+
+}
+/**
+ * this is config for leval 3
+ * @type {{name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles: [{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},null,null,null,null,null,null,null,null,null,null], hasSpider: boolean, spiderCount: number, spiderImage: HTMLImageElement, spiderSpeed: number}}
+ */
+const swarmLevel={
+    name: "Swarm",
+    screen: swarm,
+    canvas: swarmCanvas,
+    scoreElement: swarmScore,
+    targetScore: 5,
+    mouseElement: swarmMouseEaten,
+    backgroundColor: "#385448",
+    gridColor: "#30483b",
+    snakeHeadColor: "#b5d66b",
+    snakeBodyColor: "#6b9b4a",
+    snakeSpeed: 150,
+    foodColor: "#da0e32",
+    obstaclesColor: "#493d2c",
+    obstacleColorCore:"#1a671f",
+    obstacles:[
+        {x: 8, y:5},
+        {x: 8, y:6},
+        {x:8 , y:7},
+        {x:15, y:13},
+        {x:16, y:13},
+        {x:17, y:13},
+        {x:20, y:3},
+        {x:20, y:4},
+        {x:20, y:5},
+        {x:4, y:18},
+        {x:5, y:18},
+        {x:6, y:18},
+        { x: 22, y: 10 },
+        { x: 22, y: 11 },
+        { x: 22, y: 12 }
+    ],
+    hasSpider: true,
+    spiderCount: 7,
+    spiderImage: spiderImg,
+    spiderSpeed: 550
+
+};
+/**
+ * this is config for level 4
+ * @type {{name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles: [{x: number, y: number, visible: boolean, phaseOffset: number},{x: number, y: number, visible: boolean, phaseOffset: number},{x: number, y: number, visible: boolean, phaseOffset: number},{x: number, y: number, visible: boolean, phaseOffset: number},{x: number, y: number, visible: boolean, phaseOffset: number},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null], hasSpider: boolean, spiderCount: number, spiderImage: HTMLImageElement, spiderSpeed: number}}
+ */
+const caveLevel={
+    name: "Cave",
         screen: cave,
         canvas: caveCanvas,
         scoreElement: caveScore,
@@ -404,216 +422,234 @@ const levels ={
         obstaclesColor: "#777b8c",
         obstacleColorCore:"#1c2961",
         obstacles:[
-            // { x: 8, y: 5 , visible: true, phaseOffset:1},
+        // { x: 8, y: 5 , visible: true, phaseOffset:1},
 
-            // { x: 15, y: 13 , visible: true, phaseOffset:2},
-            // { x: 16, y: 13 , visible: true, phaseOffset:2},
-            // { x: 17, y: 13 , visible: true, phaseOffset:2},
-            // { x: 9, y: 17 , visible: true, phaseOffset:3},
-            // { x: 9, y: 18 , visible: true, phaseOffset:3},
-            //
+        // { x: 15, y: 13 , visible: true, phaseOffset:2},
+        // { x: 16, y: 13 , visible: true, phaseOffset:2},
+        // { x: 17, y: 13 , visible: true, phaseOffset:2},
+        // { x: 9, y: 17 , visible: true, phaseOffset:3},
+        // { x: 9, y: 18 , visible: true, phaseOffset:3},
+        //
 
-            //
-            // { x: 21, y: 2 , visible: true, phaseOffset:2},
-            // { x: 25, y: 6 , visible: true, phaseOffset:2},
-            // { x: 24, y: 6 , visible: true, phaseOffset:2},
-            // { x: 11, y: 20 , visible: true, phaseOffset:0},
-            // { x: 12, y: 20 , visible: true, phaseOffset:0},
-            // { x: 13, y: 20 , visible: true, phaseOffset:3},
-            // { x: 14, y: 20 , visible: true, phaseOffset:3},
-            // { x: 8, y: 15 , visible: true, phaseOffset:0},
+        //
+        // { x: 21, y: 2 , visible: true, phaseOffset:2},
+        // { x: 25, y: 6 , visible: true, phaseOffset:2},
+        // { x: 24, y: 6 , visible: true, phaseOffset:2},
+        // { x: 11, y: 20 , visible: true, phaseOffset:0},
+        // { x: 12, y: 20 , visible: true, phaseOffset:0},
+        // { x: 13, y: 20 , visible: true, phaseOffset:3},
+        // { x: 14, y: 20 , visible: true, phaseOffset:3},
+        // { x: 8, y: 15 , visible: true, phaseOffset:0},
 
-            { x:16, y: 8 , visible: true, phaseOffset:0},
-            { x:15, y: 8 , visible: true,phaseOffset:0},
-            { x:10, y: 4 , visible: true,phaseOffset:2},
-            { x:11, y: 4 , visible: true, phaseOffset:2},
-            // { x: 8, y: 6 , visible: true, phaseOffset:1},
-            // { x: 8, y: 7 , visible: true, phaseOffset:1},
-            // { x: 8, y: 8 , visible: true, phaseOffset:1},
-            { x:13, y: 4 , visible: true, phaseOffset:2},
-            { x:12, y:4 , visible: true, phaseOffset:2},
-            { x:12, y: 12 , visible: true,phaseOffset:3},
+        { x:16, y: 8 , visible: true, phaseOffset:0},
+        { x:15, y: 8 , visible: true,phaseOffset:0},
+        { x:10, y: 4 , visible: true,phaseOffset:2},
+        { x:11, y: 4 , visible: true, phaseOffset:2},
+        // { x: 8, y: 6 , visible: true, phaseOffset:1},
+        // { x: 8, y: 7 , visible: true, phaseOffset:1},
+        // { x: 8, y: 8 , visible: true, phaseOffset:1},
+        { x:13, y: 4 , visible: true, phaseOffset:2},
+        { x:12, y:4 , visible: true, phaseOffset:2},
+        { x:12, y: 12 , visible: true,phaseOffset:3},
 
-            { x:14, y: 12 , visible: true,phaseOffset:3},
-            { x:13, y: 8 , visible: true,phaseOffset:0},
-            { x:14, y: 8 , visible: true,phaseOffset:0},
+        { x:14, y: 12 , visible: true,phaseOffset:3},
+        { x:13, y: 8 , visible: true,phaseOffset:0},
+        { x:14, y: 8 , visible: true,phaseOffset:0},
 
-            { x:12, y: 22 , visible: true,phaseOffset:1},
+        { x:12, y: 22 , visible: true,phaseOffset:1},
 
-            { x:15, y: 22 , visible: true,phaseOffset:1},
-            // { x: 9, y: 19 , visible: true, phaseOffset:3},
-            // { x: 19, y: 2 , visible: true, phaseOffset:1},
-            // { x: 20, y: 2 , visible: true, phaseOffset:1},
-
-
-
-            {x:18, y: 18 ,visible: true,phaseOffset:2},
-            {x:14, y: 11 ,visible: true,phaseOffset:3},
-            {x:13, y: 12 ,visible: true,phaseOffset:3},
-            {x:18, y: 20 ,visible: true,phaseOffset:2},
-            {x:3, y: 19 ,visible: true,phaseOffset:3},
-            {x:4, y: 19 ,visible: true,phaseOffset:3},
-
-
-            {x:5, y: 19 ,visible: true,phaseOffset:3},
-            {x:6, y: 19 ,visible: true,phaseOffset:3},
-            {x:4, y: 15 ,visible: true,phaseOffset:0},
-            {x:5, y: 15 ,visible: true,phaseOffset:0},
-
-
-            {x:14, y: 22 ,visible: true,phaseOffset:1},
-            {x:13, y: 22 ,visible: true,phaseOffset:1},
-            {x:18, y: 17 ,visible: true,phaseOffset:2},
-            {x:21, y: 4 ,visible: true,phaseOffset:1},
+        { x:15, y: 22 , visible: true,phaseOffset:1},
+        // { x: 9, y: 19 , visible: true, phaseOffset:3},
+        // { x: 19, y: 2 , visible: true, phaseOffset:1},
+        // { x: 20, y: 2 , visible: true, phaseOffset:1},
 
 
 
+        {x:18, y: 18 ,visible: true,phaseOffset:2},
+        {x:14, y: 11 ,visible: true,phaseOffset:3},
+        {x:13, y: 12 ,visible: true,phaseOffset:3},
+        {x:18, y: 20 ,visible: true,phaseOffset:2},
+        {x:3, y: 19 ,visible: true,phaseOffset:3},
+        {x:4, y: 19 ,visible: true,phaseOffset:3},
 
-            {x:21, y: 5 ,visible: true,phaseOffset:1},
-            {x:21, y: 6 ,visible: true,phaseOffset:1},
+
+        {x:5, y: 19 ,visible: true,phaseOffset:3},
+        {x:6, y: 19 ,visible: true,phaseOffset:3},
+        {x:4, y: 15 ,visible: true,phaseOffset:0},
+        {x:5, y: 15 ,visible: true,phaseOffset:0},
+
+
+        {x:14, y: 22 ,visible: true,phaseOffset:1},
+        {x:13, y: 22 ,visible: true,phaseOffset:1},
+        {x:18, y: 17 ,visible: true,phaseOffset:2},
+        {x:21, y: 4 ,visible: true,phaseOffset:1},
 
 
 
 
+        {x:21, y: 5 ,visible: true,phaseOffset:1},
+        {x:21, y: 6 ,visible: true,phaseOffset:1},
 
-            {x:21, y: 7 ,visible: true,phaseOffset:1},
-            {x:7, y: 15 ,visible: true,phaseOffset:0},
-            {x:6, y: 15 ,visible: true,phaseOffset:0},
-            {x:21, y: 8 ,visible: true,phaseOffset:1},
-            {x:21, y: 10 ,visible: true,phaseOffset:1},
-            {x:21, y: 9 ,visible: true,phaseOffset:1}
-        ],
+
+
+
+
+        {x:21, y: 7 ,visible: true,phaseOffset:1},
+        {x:7, y: 15 ,visible: true,phaseOffset:0},
+        {x:6, y: 15 ,visible: true,phaseOffset:0},
+        {x:21, y: 8 ,visible: true,phaseOffset:1},
+        {x:21, y: 10 ,visible: true,phaseOffset:1},
+        {x:21, y: 9 ,visible: true,phaseOffset:1}
+    ],
         hasSpider: true,
         spiderCount: 3,
         spiderImage: spiderImg2,
         spiderSpeed: 1000,
 
-    },
-    mineField:{
-        name: "MineField",
-        screen: mineField,
-        canvas: mineFieldCanvas,
-        scoreElement: mineFieldScore,
-        targetScore: 6,
-        mouseElement:mineFieldMouseEaten,
-        backgroundColor: "#33352e",
-        gridColor: "#4a4d40",
-        snakeHeadColor: "#b5d66b",
-        snakeBodyColor: "#6b9b4a",
-        snakeSpeed: 150,
-        foodColor: "#da0e32",
-        obstaclesColor: "#c6c2bd",
-        obstacleColorCore:"#6e470f",
-        obstacles:[
-            { x: 8, y: 5 },
-            { x: 8, y: 6 },
-            { x: 8, y: 7 },
+};
+/**
+ * this is config for level 5
+ * @type {{name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles: [{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null], mineCount: number, mineColor: string, mineTimeCountDown: number}}
+ */
+const mineFieldLevel={
+    name: "MineField",
+    screen: mineField,
+    canvas: mineFieldCanvas,
+    scoreElement: mineFieldScore,
+    targetScore: 6,
+    mouseElement:mineFieldMouseEaten,
+    backgroundColor: "#33352e",
+    gridColor: "#4a4d40",
+    snakeHeadColor: "#b5d66b",
+    snakeBodyColor: "#6b9b4a",
+    snakeSpeed: 150,
+    foodColor: "#da0e32",
+    obstaclesColor: "#c6c2bd",
+    obstacleColorCore:"#6e470f",
+    obstacles:[
+        { x: 8, y: 5 },
+        { x: 8, y: 6 },
+        { x: 8, y: 7 },
 
-            { x: 19, y: 9 },
+        { x: 19, y: 9 },
 
-            { x: 22, y: 7 },
-            { x: 7, y: 18 },
-            { x: 7, y: 19 },
-            { x: 7, y: 20 },
-            { x: 7, y: 21 },
-            { x: 13, y: 3 },
-            { x: 14, y: 3 },
-            { x: 14, y: 4 },
-            { x: 14, y: 5 },
-            { x: 14, y: 6 },
-            { x: 18, y: 19 },
-            { x: 19, y: 19 },
-            { x: 20, y: 19 },
-            { x: 20, y: 20 },
-            { x: 20, y: 21 },
-            { x: 21, y: 19 },
+        { x: 22, y: 7 },
+        { x: 7, y: 18 },
+        { x: 7, y: 19 },
+        { x: 7, y: 20 },
+        { x: 7, y: 21 },
+        { x: 13, y: 3 },
+        { x: 14, y: 3 },
+        { x: 14, y: 4 },
+        { x: 14, y: 5 },
+        { x: 14, y: 6 },
+        { x: 18, y: 19 },
+        { x: 19, y: 19 },
+        { x: 20, y: 19 },
+        { x: 20, y: 20 },
+        { x: 20, y: 21 },
+        { x: 21, y: 19 },
 
-            { x: 4, y: 5 },
-            { x: 6, y: 5 },
-            { x: 4, y: 6 },
-            { x: 4, y: 7 },
-            { x: 6, y: 7 },
-            { x: 10, y: 16 },
-            { x: 11, y: 16 },
-            { x: 12, y: 16 },
-            { x: 13, y: 16 },
-            { x: 16, y: 6 },
-            { x: 16, y: 7 },
-            { x: 16, y: 8 },
-            { x: 17, y: 8 },
-            { x: 18, y: 8 },
-            { x: 3, y: 13 },
-            { x: 4, y: 13 },
-
-
-            { x: 10, y: 22 },
-            { x: 11, y: 22 },
-            { x: 12, y: 22 },
-            { x: 13, y: 22 },
-            { x: 16, y: 22 },
-            { x: 17, y: 22 },
-            { x: 18, y: 22 },
-            { x: 23, y: 16 },
-            { x: 23, y: 17 },
-            { x: 23, y: 18 }],
-        mineCount:20,
-        mineColor: "#4a0d18",
-        mineTimeCountDown: 10,
-    },
-        volcano:{
-            name: "Volcano",
-            screen: volcano,
-            canvas: volcanoCanvas,
-            scoreElement: volcanoScore,
-            mouseElement: volcanoMouseEaten,
-            targetScore: 5,
-            backgroundColor: "#171616",
-            gridColor:"#593333",
-            snakeHeadColor: "#15cf0e",
-            snakeBodyColor: "#42812a",
-            snakeSpeed: 145,
-            poisonKey:"q",
-            snakePoisonColor: "#a50dd8",
-            snakePoisonSpeed: 20,
-            snakePoisonDame:1,
-            foodColor: "#ecd90a",
-            obstaclesColor: "#80797a",
-            obstacleColorCore:"#8a0c23",
-            obstacles:[
+        { x: 4, y: 5 },
+        { x: 6, y: 5 },
+        { x: 4, y: 6 },
+        { x: 4, y: 7 },
+        { x: 6, y: 7 },
+        { x: 10, y: 16 },
+        { x: 11, y: 16 },
+        { x: 12, y: 16 },
+        { x: 13, y: 16 },
+        { x: 16, y: 6 },
+        { x: 16, y: 7 },
+        { x: 16, y: 8 },
+        { x: 17, y: 8 },
+        { x: 18, y: 8 },
+        { x: 3, y: 13 },
+        { x: 4, y: 13 },
 
 
-                { x: 9, y: 5 },
-                { x: 10, y: 5 },
-                { x: 11, y: 5 },
-                { x: 12, y: 5 },
-                { x: 13, y: 5 },
-                { x: 14, y: 5 },
-                { x: 9, y: 20 },
-                { x: 10, y: 20 },
-                { x: 11, y: 20 },
-                { x: 12, y: 20 },
-                { x: 13, y: 20 },
-                { x: 14, y: 20 },
-                // { x: 19, y: 11 },
-                // { x: 19, y: 10 },
-                // { x: 19, y: 13 },
-                // { x: 19, y: 12 }
+        { x: 10, y: 22 },
+        { x: 11, y: 22 },
+        { x: 12, y: 22 },
+        { x: 13, y: 22 },
+        { x: 16, y: 22 },
+        { x: 17, y: 22 },
+        { x: 18, y: 22 },
+        { x: 23, y: 16 },
+        { x: 23, y: 17 },
+        { x: 23, y: 18 }],
+    mineCount:20,
+    mineColor: "#4a0d18",
+    mineTimeCountDown: 10,
+};
+/**
+ * this is config for level 6
+ * @type {{name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, mouseElement: HTMLElement, targetScore: number, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, poisonKey: string, snakePoisonColor: string, snakePoisonSpeed: number, snakePoisonDame: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles: [{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},null,null,null,null,null,null,null], dragonColor: string, dragonSize: number, dragonSpeed: number, dragonStep: number, dragonHP: number, fireBreathColor: string, fireBreathWarningColor: string, fireBreathTimeCountDown: number, fireBreathSpeed: number}}
+ */
+const volcanolevel ={
+    name: "Volcano",
+    screen: volcano,
+    canvas: volcanoCanvas,
+    scoreElement: volcanoScore,
+    mouseElement: volcanoMouseEaten,
+    targetScore: 5,
+    backgroundColor: "#171616",
+    gridColor:"#593333",
+    snakeHeadColor: "#15cf0e",
+    snakeBodyColor: "#42812a",
+    snakeSpeed: 145,
+    poisonKey:"q",
+    snakePoisonColor: "#a50dd8",
+    snakePoisonSpeed: 20,
+    snakePoisonDame:1,
+    foodColor: "#ecd90a",
+    obstaclesColor: "#80797a",
+    obstacleColorCore:"#8a0c23",
+    obstacles:[
 
-                ],
-            dragonColor: "#510715",
-            dragonSize:1,
-            dragonSpeed: 900,
-            dragonStep:1,
-            dragonHP: 10,
-            fireBreathColor:"#f80321",
-            fireBreathWarningColor: "#b52626",
-            fireBreathTimeCountDown: 3500,
-            fireBreathSpeed: 90,
+
+        { x: 9, y: 5 },
+        { x: 10, y: 5 },
+        { x: 11, y: 5 },
+        { x: 12, y: 5 },
+        { x: 13, y: 5 },
+        { x: 14, y: 5 },
+        { x: 9, y: 20 },
+        { x: 10, y: 20 },
+        { x: 11, y: 20 },
+        { x: 12, y: 20 },
+        { x: 13, y: 20 },
+        { x: 14, y: 20 },
+        // { x: 19, y: 11 },
+        // { x: 19, y: 10 },
+        // { x: 19, y: 13 },
+        // { x: 19, y: 12 }
+
+    ],
+    dragonColor: "#510715",
+    dragonSize:1,
+    dragonSpeed: 900,
+    dragonStep:1,
+    dragonHP: 10,
+    fireBreathColor:"#f80321",
+    fireBreathWarningColor: "#b52626",
+    fireBreathTimeCountDown: 3500,
+    fireBreathSpeed: 90,
 
 
 
-        }
-
+};
+/**
+ * this is array for all level
+ * @type {{village: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacles: *[]}, forest: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, hasKnight: boolean, knightSpeed: number, knightAppearScore: number, knightImage: HTMLImageElement, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles: [{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]}, swarm: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles: [{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},null,null,null,null,null,null,null,null,null,null], hasSpider: boolean, spiderCount: number, spiderImage: HTMLImageElement, spiderSpeed: number}, cave: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles: [{x: number, y: number, visible: boolean, phaseOffset: number},{x: number, y: number, visible: boolean, phaseOffset: number},{x: number, y: number, visible: boolean, phaseOffset: number},{x: number, y: number, visible: boolean, phaseOffset: number},{x: number, y: number, visible: boolean, phaseOffset: number},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null], hasSpider: boolean, spiderCount: number, spiderImage: HTMLImageElement, spiderSpeed: number}, mineField: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, targetScore: number, mouseElement: HTMLElement, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles: [{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null], mineCount: number, mineColor: string, mineTimeCountDown: number}, volcano: {name: string, screen: HTMLElement, canvas: HTMLElement, scoreElement: HTMLElement, mouseElement: HTMLElement, targetScore: number, backgroundColor: string, gridColor: string, snakeHeadColor: string, snakeBodyColor: string, snakeSpeed: number, poisonKey: string, snakePoisonColor: string, snakePoisonSpeed: number, snakePoisonDame: number, foodColor: string, obstaclesColor: string, obstacleColorCore: string, obstacles: [{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},{x: number, y: number},null,null,null,null,null,null,null], dragonColor: string, dragonSize: number, dragonSpeed: number, dragonStep: number, dragonHP: number, fireBreathColor: string, fireBreathWarningColor: string, fireBreathTimeCountDown: number, fireBreathSpeed: number}}}
+ */
+const levels ={
+    village:villageLevel,
+    forest: forestLevel,
+    swarm:swarmLevel,
+    cave:caveLevel,
+    mineField:mineFieldLevel,
+    volcano: volcanolevel
 }
 
 /**
@@ -981,7 +1017,7 @@ function drawBackground(){
  */
 function drawObtacles(){
     for(const obstacle of activeLevel.obstacles){
-        if (currentLevelName === "cave" && !obstacle.visible){
+        if (obstacle.visible===false){
             continue;
         }
         activeCtx.fillStyle = activeLevel.obstaclesColor;
@@ -1186,7 +1222,7 @@ function findKnightNextStep(){
  * this is function move knight base on step has been found in function findKnightNextStep
  */
 function moveKnight(){
-    if(knight===null || activeLevel===null||currentLevelName !=="forest"){
+    if(knight===null || activeLevel===null){
         return;
     }
     const nextStep =findKnightNextStep();
@@ -1341,9 +1377,6 @@ function moveSpider(){
  * cycle 3s show, 3s hidden: full cycle 6s
  */
 function updateObstacles(){
-    if(currentLevelName!=="cave"){
-        return;
-    }
     const elapedTime =(Date.now()-levelStartTime)/1000;
     for(const obstacle of activeLevel.obstacles){
         const time = elapedTime + obstacle.phaseOffset;
@@ -1366,9 +1399,6 @@ function updateObstacles(){
  * create mines location valid base on create food
  */
 function createMines(){
-    if(currentLevelName!=="mineField"){
-        return;
-    }
     const activeMines = mines.filter(mine => mine.exploding===false);
     if(activeMines.length>=activeLevel.mineCount){
         return;
@@ -1400,9 +1430,6 @@ function createMines(){
  * check mine is exploion and set status and minus time left
  */
 function updateMines(){
-    if(currentLevelName!=="mineField"){
-        return;
-    }
     for(let i=mines.length-1;i>=0;i--){
         const mine = mines[i];
         if(mine.exploding===false){
@@ -1425,9 +1452,6 @@ function updateMines(){
  * @returns {boolean}
  */
 function checkMineExplosion(){
-    if (currentLevelName!=="mineField"){
-        return;
-    }
     for (const mine of mines){
         if (mine.exploding===true){
             for (const segment of snake){
@@ -1446,9 +1470,6 @@ function checkMineExplosion(){
  * this is function draw for mines
  */
 function drawMines(){
-    if (currentLevelName!=="mineField"){
-        return;
-    }
     activeCtx.textAlign="center";
     activeCtx.textBaseline="middle";
     for (const mine of mines){
@@ -1456,8 +1477,7 @@ function drawMines(){
             activeCtx.fillStyle = activeLevel.mineColor;
             activeCtx.fillRect(mine.x*cellSize,mine.y*cellSize,cellSize,cellSize);
             activeCtx.fillStyle="white";
-            const secondLeft = Math.ceil(mine.timeLeft || 0);
-            activeCtx.fillText(secondLeft,mine.x*cellSize+(cellSize/2),mine.y*cellSize+(cellSize/2));
+            activeCtx.fillText(mine.timeLeft,mine.x*cellSize+(cellSize/2),mine.y*cellSize+(cellSize/2));
         }else if(mine.exploding===true){
             activeCtx.fillStyle="#e3851a";
             for (let y=-1;y<=1;y++){
@@ -1475,9 +1495,6 @@ function drawMines(){
  * this is function start create mine and set interval. i'm stupid when write it
  */
 function startCreateMine(){
-    if(currentLevelName!=="mineField"){
-        return;
-    }
     createMines();
     mineSpawnTimer = setInterval(() => {createMines();},1000);
 }
@@ -1500,9 +1517,6 @@ function startMineCountDown(){
  * this is function define for skill shoot of snake
  */
 function  shootPoison(){
-    if(currentLevelName!=="volcano"){
-        return;
-    }
     const headSnake = snake[0];
     poisonsExist.push({x: headSnake.x, y: headSnake.y,directionPoisonX:direction.x,directionPoisonY:direction.y});
     drawGame();
@@ -1512,9 +1526,6 @@ function  shootPoison(){
  * this is function move skill poison
  */
 function movePoison(){
-    if(currentLevelName!=="volcano"){
-        return;
-    }
     for (let i=poisonsExist.length-1;i>=0;i--){
         const poison = poisonsExist[i];
         poison.x += poison.directionPoisonX;
@@ -1557,9 +1568,6 @@ function movePoison(){
  * this is function draw poison
  */
 function drawPoison(){
-    if(currentLevelName!=="volcano"){
-        return;
-    }
     activeCtx.fillStyle = activeLevel.snakePoisonColor;
     for (const poison of poisonsExist){
         activeCtx.fillRect(poison.x*cellSize+1,poison.y*cellSize+1,cellSize-2,cellSize-2);
@@ -1600,7 +1608,7 @@ function createDragon(){
  * this is function draw dragon
  */
 function drawDraron(){
-    if(currentLevelName!=="volcano"||dragon===null) {
+    if(dragon===null) {
         return;
     }
     const size = activeLevel.dragonSize;
@@ -1622,7 +1630,7 @@ function drawDraron(){
  * this is function move dragon random base on move spider
  */
 function moveDragon(){
-    if (currentLevelName!=="volcano"|| dragon===null){
+    if (dragon===null){
         return;
     }
     const step =activeLevel.dragonStep;
@@ -1666,7 +1674,7 @@ function moveDragon(){
  * this is function firebreath of dragon
  */
 function fireBreath(){
-    if (currentLevelName!=="volcano"|| dragon===null){
+    if (dragon===null){
         return;
     }
     const directions =  [
@@ -1690,7 +1698,7 @@ function fireBreath(){
  *  this is function move fire base on move poison
  */
 function moveFire(){
-    if (currentLevelName!=="volcano"||fireExist===null){
+    if (fireExist===null){
         return;
     }
     for(let i=fireExist.length-1;i>=0;i--){
@@ -1719,9 +1727,6 @@ function moveFire(){
  * this is function draw fire
  */
 function  drawFire(){
-    if(currentLevelName!=="volcano"){
-        return;
-    }
     activeCtx.fillStyle = activeLevel.fireBreathColor;
     for (const fire of fireExist){
         activeCtx.fillRect(fire.x*cellSize+1,fire.y*cellSize+1,cellSize-2,cellSize-2);
