@@ -953,6 +953,19 @@ function stopGameLoop(){
         clearInterval(snakePoisonLoop);
         snakePoisonLoop = null;
     }
+    if (dragonLoop !== null) {
+        clearInterval(dragonLoop);
+        dragonLoop = null;
+
+    }
+    if (dragonFireLoop !== null) {
+        clearInterval(dragonFireLoop);
+        dragonFireLoop = null;
+    }
+    if (fireMoveLoop !== null) {
+        clearInterval(fireMoveLoop);
+        fireMoveLoop = null;
+    }
 
 }
 
